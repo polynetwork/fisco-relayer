@@ -1,0 +1,16 @@
+asset
+cert
+chains/
+cmd/fisco_deployer
+cmd/fisco_trans
+db/bolt.bin
+gmcert/
+hello/
+log/202*
+*.crt
+config.json
+config*.toml
+*.key
+.idea
+pk.txt
+wallet.dat
