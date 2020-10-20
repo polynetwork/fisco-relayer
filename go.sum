@@ -475,6 +475,7 @@ github.com/mitchellh/iochan v1.0.0/go.mod h1:JwYml1nuB7xOzsp52dPpHFffvOCDupsG0Qu
 github.com/mitchellh/mapstructure v0.0.0-20160808181253-ca63d7c062ee/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
+github.com/mitchellh/mapstructure v1.3.2 h1:mRS76wmkOn3KkKAyXDu42V+6ebnXWIztFSYGN7GeoRg=
 github.com/mitchellh/mapstructure v1.3.2/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
@@ -552,6 +553,7 @@ github.com/pborman/uuid v1.2.0/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.6.0 h1:aetoXYr0Tv7xRU/V4B4IZJ2QcbtMUFoNb3ORp7TzIK4=
 github.com/pelletier/go-toml v1.6.0/go.mod h1:5N711Q9dKgbdkxHL+MEfF31hpT7l0S0s/t2kKREewys=
+github.com/pelletier/go-toml v1.8.0 h1:Keo9qb7iRJs2voHvunFtuuYFsbWeOBh8/P9v/kVMFtw=
 github.com/pelletier/go-toml v1.8.0/go.mod h1:D6yutnOGMveHEPV7VQOuvI/gXY61bv+9bAOTRnLElKs=
 github.com/performancecopilot/speed v3.0.0+incompatible/go.mod h1:/CLtqpZ5gBg1M9iaPbIdPPGyKcA8hKdoy6hAWba7Yac=
 github.com/peterh/liner v1.1.1-0.20190123174540-a2c9a5303de7 h1:oYW+YCJ1pachXTQmzR3rNLYGGz4g/UgFcjb28p/viDM=
@@ -660,9 +662,11 @@ github.com/spaolacci/murmur3 v1.0.1-0.20190317074736-539464a789e9/go.mod h1:JwIa
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
 github.com/spf13/afero v1.2.1 h1:qgMbHoJbPbw579P+1zVY+6n4nIFuIchaIjzZ/I/Yq8M=
 github.com/spf13/afero v1.2.1/go.mod h1:9ZxEEn6pIJ8Rxe320qSDBk6AsU0r9pR7Q4OcevTdifk=
+github.com/spf13/afero v1.3.1 h1:GPTpEAuNr98px18yNQ66JllNil98wfRZ/5Ukny8FeQA=
 github.com/spf13/afero v1.3.1/go.mod h1:5KUK8ByomD5Ti5Artl0RtHeI5pTF7MIDuXL3yY520V4=
 github.com/spf13/cast v1.3.0 h1:oget//CVOEoFewqQxwr0Ej5yjygnqGkvggSE/gB35Q8=
 github.com/spf13/cast v1.3.0/go.mod h1:Qx5cxh0v+4UWYiBimWS+eyWzqEqokIECu5etghLkUJE=
+github.com/spf13/cast v1.3.1 h1:nFm6S0SMdyzrzcmThSipiEubIDy8WEXKNZ0UOgiRpng=
 github.com/spf13/cast v1.3.1/go.mod h1:Qx5cxh0v+4UWYiBimWS+eyWzqEqokIECu5etghLkUJE=
 github.com/spf13/cobra v0.0.3/go.mod h1:1l0Ry5zgKvJasoi3XT1TypsSe7PqH0Sj9dhYf7v3XqQ=
 github.com/spf13/cobra v0.0.5/go.mod h1:3K3wKZymM7VvHMDS9+Akkh4K60UwM26emMESw8tLCHU=
@@ -767,10 +771,12 @@ github.com/zouxyan/gmsm v1.3.2-0.20200925082225-a66aabdb8da8/go.mod h1:HaUcFuY0a
 github.com/zouxyan/poly v0.0.0-20200926064936-0f599281b437/go.mod h1:uKmVXPvYqJdyZ7oAs0v2XzE3zOndg5/wG/N1igIHukw=
 github.com/zouxyan/poly v0.0.0-20201002042542-fe572ae5cfa8 h1:jeEsVuehK1oQtIKaKU+Wb6YnthHupxLVBJax1rMWLPs=
 github.com/zouxyan/poly v0.0.0-20201002042542-fe572ae5cfa8/go.mod h1:9O7QmLutYCI+dBzHoYZMUBJqEXLsk0XdTUvJPssC7qc=
+github.com/zouxyan/poly v0.0.0-20201016094709-d256b7155d81 h1:nCSMXz8o1iw0VRNtz7VL+xAaxup3sdhWOUyR4zbwO0M=
 github.com/zouxyan/poly v0.0.0-20201016094709-d256b7155d81/go.mod h1:43vmqmvy8X0vS1oWrCQTIw+TSUqPYvWKyb5jFiG0x4Q=
 github.com/zouxyan/poly-go-sdk v0.0.0-20200925084255-4fbbd6a8ab57/go.mod h1:fWY+FQ4HE8pQb7nDloRzdvHKaEylJ97++FYAYO4VD2A=
 github.com/zouxyan/poly-go-sdk v0.0.0-20201002043132-89252c912f2e h1:0Qxu7yZWCzuO3h8HMEIlC6JXL3tbCbmImgttKSlghL0=
 github.com/zouxyan/poly-go-sdk v0.0.0-20201002043132-89252c912f2e/go.mod h1:CQDmLdrge0KP+efcV1/ubLQZ45UztjD+zEv+3m6Zq5s=
+github.com/zouxyan/poly-go-sdk v0.0.0-20201016100426-0ff50a3db691 h1:4xO9JV11KA1BWaBj0mTeyOHg/H2MHbTpllOBewWaevI=
 github.com/zouxyan/poly-go-sdk v0.0.0-20201016100426-0ff50a3db691/go.mod h1:bKc1e2O6Vr+sc2tKRx5EqKNG+beBeQyF+URiDbIrQss=
 github.com/zquestz/grab v0.0.0-20190224022517-abcee96e61b1 h1:1qKTeMTSIEvRIjvVYzgcRp0xVp0eoiRTTiHSncb5gD8=
 github.com/zquestz/grab v0.0.0-20190224022517-abcee96e61b1/go.mod h1:bslhAiUxakrA6z6CHmVyvkfpnxx18RJBwVyx2TluJWw=

@@ -41,7 +41,6 @@ import (
 	"github.com/polynetwork/fisco-relayer/cmd"
 	"github.com/polynetwork/fisco-relayer/config"
 	"github.com/polynetwork/fisco-relayer/db"
-	"github.com/polynetwork/fisco-relayer/hello" // import store
 	"github.com/polynetwork/fisco-relayer/log"
 	"github.com/polynetwork/fisco-relayer/manager"
 	sdk "github.com/polynetwork/poly-go-sdk"
@@ -156,35 +155,6 @@ func startServer(ctx *cli.Context) {
 
 	waitToExit()
 
-}
-
-func testFiscoHello(client *client.Client) {
-	address, tx, instance, err := helloworld.DeployHelloWorld(client.GetTransactOpts(), client)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("contract address: ", address.Hex()) // the address should be saved
-	fmt.Println("transaction hash: ", tx.Hash().Hex())
-
-	instance1, err := helloworld.NewHelloWorld(address, client)
-	if err != nil {
-		log.Fatal(err)
-	}
-	hello := &helloworld.HelloWorldSession{Contract: instance1, CallOpts: *client.GetCallOpts(), TransactOpts: *client.GetTransactOpts()}
-
-	value, err := hello.Get()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("transaction value: ", value)
-	trans, err := hello.Set("fisco")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("transaction hash: ", trans.Hash().Hex())
-	_ = instance
-
-	_ = instance1
 }
 
 func setUpPoly(poly *sdk.PolySdk, RpcAddr string) error {
