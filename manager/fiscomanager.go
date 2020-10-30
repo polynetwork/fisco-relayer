@@ -18,6 +18,7 @@ package manager
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
@@ -34,6 +35,7 @@ import (
 	"github.com/polynetwork/poly-io-test/chains/ont"
 	"github.com/polynetwork/poly/consensus/vbft/config"
 	"github.com/status-im/keycard-go/hexutils"
+	"github.com/tjfoc/gmsm/pkcs12"
 	"io/ioutil"
 	"math/big"
 	"strings"
@@ -467,14 +469,30 @@ func (this *FiscoManager) SendCrossChainInfoWithRaw(rawInfo []byte) (common.Uint
 		return common.UINT256_EMPTY, fmt.Errorf("failed to read fisco key: %v", err)
 	}
 	blk, _ := pem.Decode(keys)
-	key, err := sm2.ParsePKCS8UnecryptedPrivateKey(blk.Bytes)
-	if err != nil {
-		return common.UINT256_EMPTY, fmt.Errorf("failed to ParsePKCS8UnecryptedPrivateKey: %v", err)
-	}
-
-	sig, err := key.Sign(rand.Reader, rawInfo, nil)
-	if err != nil {
-		return common.UINT256_EMPTY, err
+	
+	var sig []byte
+	if !this.config.FiscoConfig.IsGM {
+		hasher := sm2.SHA256.New()
+		hasher.Write(rawInfo)
+		raw := hasher.Sum(nil)
+		key, err := pkcs12.ParsePKCS8PrivateKey(blk.Bytes)
+		if err != nil {
+			return common.UINT256_EMPTY, err
+		}
+		priv := key.(*ecdsa.PrivateKey)
+		sig, err = priv.Sign(rand.Reader, raw, nil)
+		if err != nil {
+			return common.UINT256_EMPTY, err
+		}
+	} else {
+		key, err := sm2.ParsePKCS8UnecryptedPrivateKey(blk.Bytes)
+		if err != nil {
+			return common.UINT256_EMPTY, fmt.Errorf("failed to ParsePKCS8UnecryptedPrivateKey: %v", err)
+		}
+		sig, err = key.Sign(rand.Reader, rawInfo, nil)
+		if err != nil {
+			return common.UINT256_EMPTY, err
+		}
 	}
 
 	txHash, err := this.polySdk.Native.Ccm.RelayCrossChainInfo(this.config.FiscoConfig.SideChainId, sig, rawInfo, this.polySigner.Address[:], this.caSet, this.polySigner)

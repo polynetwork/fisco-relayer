@@ -688,18 +688,18 @@ func (this *FiscoSender) getRouter() string {
 func (this *FiscoSender) waitTransactionConfirm(polyTxHash string, hash ethcommon.Hash) bool {
 	for {
 		time.Sleep(time.Second * 1)
-		_, err := this.client.GetTransactionByHash(context.Background(), polyTxHash)
+		_, err := this.client.GetTransactionByHash(context.Background(), hash.String())
 		if err != nil {
 			continue
 		}
-		log.Debugf("( eth_transaction %s, poly_tx %s ) is pending: %v", hash.String(), polyTxHash)
+		log.Debugf("( fisco_transaction %s, poly_tx %s ) is pending", hash.String(), polyTxHash)
 
 		receipt, err := this.client.TransactionReceipt(context.Background(), hash)
 		if err != nil {
 			continue
 		}
 
-		log.Debugf("( eth_transaction %s, Status %s ) is pending: %v", hash.String(), receipt.Status)
+		log.Debugf("( fisco_transaction %s, Status %s ) is pending: %v", hash.String(), receipt.Status)
 
 		return true
 	}
