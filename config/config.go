@@ -93,6 +93,7 @@ type FiscoConfig struct {
 	NodePath            string
 	KeyPath             string
 	AgencyPath          string
+	IsGM bool
 }
 
 type ONTConfig struct {
