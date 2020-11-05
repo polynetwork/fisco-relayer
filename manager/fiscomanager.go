@@ -162,10 +162,10 @@ func (this *FiscoManager) MonitorChain() {
 				continue
 			}
 			height := uint64(currHeight)
- 			if height <= this.currentHeight {
+			log.Debugf("FiscoManager MonitorChain - fiscobcos chain current height: %d", height)
+			if height <= this.currentHeight {
 				continue
 			}
-			log.Debugf("FiscoManager MonitorChain - fiscobcos chain current height: %d", height)
 			for this.currentHeight < height {
 				if this.FetchLockDepositEvents(this.currentHeight + 1) {
 					this.currentHeight++
@@ -402,7 +402,8 @@ func (this *FiscoManager) FetchLockDepositEvents(height uint64) bool {
 	for _, tx := range res.Transactions {
 		recp, err := this.client.TransactionReceipt(context.Background(), comm.HexToHash(tx))
 		if err != nil {
-			log.Errorf("fetchLockDepositEvents - TransactionReceipt error: %v", err.Error())
+			log.Errorf("fetchLockDepositEvents - TransactionReceipt error: %s", err.Error())
+			continue
 		}
 		if recp.Status != "0x0" {
 			continue
