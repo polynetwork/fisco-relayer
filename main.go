@@ -91,15 +91,11 @@ func startServer(ctx *cli.Context) {
 
 	ConfigPath = ctx.GlobalString(cmd.GetFlagName(cmd.ConfigPathFlag))
 
-	ethstart := ctx.GlobalUint64(cmd.GetFlagName(cmd.EthStartFlag))
-	if ethstart > 0 {
-		StartHeight = ethstart
-	}
-
 	StartForceHeight = 0
 	ethstartforce := ctx.GlobalUint64(cmd.GetFlagName(cmd.EthStartForceFlag))
 	if ethstartforce > 0 {
 		StartForceHeight = ethstartforce
+		StartHeight = ethstartforce
 	}
 	polyStart := ctx.GlobalUint64(cmd.GetFlagName(cmd.PolyStartFlag))
 	if polyStart > 0 {
