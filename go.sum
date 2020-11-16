@@ -27,6 +27,8 @@ github.com/FISCO-BCOS/go-sdk v0.9.0 h1:Ntpq+afvNoJYcBc/4duL1L4RLzX86kVXM1LvFzwXe
 github.com/FISCO-BCOS/go-sdk v0.9.0/go.mod h1:f2YQEdXNJb7iunSAe1/l3U1lZydSp1aXTMUrs0QUQOU=
 github.com/FISCO-BCOS/go-sdk v0.10.0 h1:Djg4wrq0RGBCbvmZXHkYgoGZYcrLOyxBvJSD2W/DhAw=
 github.com/FISCO-BCOS/go-sdk v0.10.0/go.mod h1:XHc7f2r82DiWlUO3GihJJG1HZjPC/H+ApBJpAwLqkTI=
+github.com/FISCO-BCOS/go-sdk v0.10.1 h1:5h5en/EFnnnP+2+G0zbMAWbspxJ+5nBGPh3rAWCbMlU=
+github.com/FISCO-BCOS/go-sdk v0.10.1/go.mod h1:XHc7f2r82DiWlUO3GihJJG1HZjPC/H+ApBJpAwLqkTI=
 github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e h1:ahyvB3q25YnZWly5Gq1ekg6jcmWaGj/vG/MhF4aisoc=
 github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e/go.mod h1:kGUqhHd//musdITWjFvNTHn90WG9bMLBEPQZ17Cmlpw=
 github.com/GeertJohan/go.incremental v1.0.0/go.mod h1:6fAjUhbVuX1KcMD3c8TEgVUqmo4seqhv0i0kdATSkM0=

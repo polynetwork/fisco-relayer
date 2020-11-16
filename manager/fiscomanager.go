@@ -156,7 +156,9 @@ func (this *FiscoManager) MonitorChain() {
 	for {
 		select {
 		case <-fetchBlockTicker.C:
+			log.Info("in !!!!")
 			currHeight, err := this.BlockNumber()
+			log.Info("out !!!!")
 			if err != nil {
 				log.Fatalf("FiscoManager MonitorChain - failed to get current fisco height: %v", err)
 				continue
@@ -260,19 +262,19 @@ func (this *FiscoManager) BindHash() {
 	lock_proxy := &lock_proxy_abi.LockProxySession{Contract: instance1, CallOpts: *this.client.GetCallOpts(), TransactOpts: *this.client.GetTransactOpts()}
 
 	fromAddress := comm.HexToAddress("0x2EEA349947f93c3B9b74FBcf141e102ADD510eCE")
-	trans, err := lock_proxy.BindProxyHash(2, fromAddress.Bytes())
+	trans, recp, err := lock_proxy.BindProxyHash(2, fromAddress.Bytes())
 	if err != nil {
 		log.Fatalf("BindProxyHash error: %v", err)
 	}
-	log.Infof("BindProxyHash tx: %v", trans.Hash().Hex())
+	log.Infof("BindProxyHash tx: %v,recp :%v", trans.Hash().Hex(), recp.BlockNumber)
 	fromAssetHash := comm.HexToAddress(this.config.FiscoConfig.PETHContractAddress)
 
 	toAssetHash := comm.HexToAddress("0x0000000000000000000000000000000000000000")
-	trans1, err := lock_proxy.BindAssetHash(fromAssetHash, 2, toAssetHash.Bytes())
+	trans1, recp1, err := lock_proxy.BindAssetHash(fromAssetHash, 2, toAssetHash.Bytes())
 	if err != nil {
 		log.Fatalf("BindProxyHash error: %v", err)
 	}
-	log.Infof("BindAssetHash tx: %v", trans1.Hash().Hex())
+	log.Infof("BindAssetHash tx: %v,recp:%v", trans1.Hash().Hex(), recp1.BlockNumber)
 	_ = instance1
 }
 
@@ -309,13 +311,13 @@ func (this *FiscoManager) StartTransact(toAccAddr string, amount int64) {
 	}
 
 	toAcc := comm.HexToAddress(toAccAddr)
-	tx1, err := lock_proxy.Lock(fiscoxAddress, 2, toAcc.Bytes(), big.NewInt(amount))
+	tx1, recp2, err := lock_proxy.Lock(fiscoxAddress, 2, toAcc.Bytes(), big.NewInt(amount))
 
 	if err != nil {
 		log.Fatalf("Lock proxy: %v", err)
 		return
 	}
-	log.Infof("Lock tx1 %s", tx1.Hash().Hex())
+	log.Infof("Lock tx1 %s,recp2:%v", tx1.Hash().Hex(), recp2.BlockNumber)
 
 }
 
@@ -373,9 +375,9 @@ func (this *FiscoManager) SyncFiscoGenesisHeader(poly *sdk.PolySdk, ecmAddr stri
 	}
 	rawHdr := gB.Header.ToArray()
 
-	trans, err := eccmContract.InitGenesisBlock(this.client.GetTransactOpts(), rawHdr, publickeys)
+	trans, recp, err := eccmContract.InitGenesisBlock(this.client.GetTransactOpts(), rawHdr, publickeys)
 
-	log.Infof("InitGenesisBlock: %s", trans.Hash().Hex())
+	log.Infof("InitGenesisBlock: %s,recp:%v", trans.Hash().Hex(), recp.BlockNumber)
 }
 
 type BlockRes struct {
@@ -405,7 +407,7 @@ func (this *FiscoManager) FetchLockDepositEvents(height uint64) bool {
 			log.Errorf("fetchLockDepositEvents - TransactionReceipt error: %s", err.Error())
 			continue
 		}
-		if recp.Status != "0x0" {
+		if recp.Status != 0 {
 			continue
 		}
 		for _, v := range recp.Logs {
@@ -470,7 +472,7 @@ func (this *FiscoManager) SendCrossChainInfoWithRaw(rawInfo []byte) (common.Uint
 		return common.UINT256_EMPTY, fmt.Errorf("failed to read fisco key: %v", err)
 	}
 	blk, _ := pem.Decode(keys)
-	
+
 	var sig []byte
 	if !this.config.FiscoConfig.IsGM {
 		hasher := sm2.SHA256.New()

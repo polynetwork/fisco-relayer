@@ -1,22 +1,6 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-/*
-* Copyright (C) 2020 The poly network Authors
-* This file is part of The poly network library.
-*
-* The poly network is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* The poly network is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU Lesser General Public License for more details.
-* You should have received a copy of the GNU Lesser General Public License
-* along with The poly network . If not, see <http://www.gnu.org/licenses/>.
- */
 package lock_proxy_abi
 
 import (
@@ -160,12 +144,12 @@ func (_Context *ContextRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -179,12 +163,12 @@ func (_Context *ContextCallerRaw) Call(opts *bind.CallOpts, result interface{}, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -315,12 +299,12 @@ func (_IERC20 *IERC20Raw) Call(opts *bind.CallOpts, result interface{}, method s
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IERC20 *IERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IERC20 *IERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.IERC20Transactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.IERC20Transactor.contract.Transact(opts, method, params...)
 }
 
@@ -334,12 +318,12 @@ func (_IERC20 *IERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, me
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IERC20 *IERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IERC20 *IERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -424,64 +408,100 @@ func (_IERC20 *IERC20CallerSession) TotalSupply() (*big.Int, error) {
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+func (_IERC20 *IERC20Transactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncApprove(handler, &_IERC20.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncApprove(handler, &_IERC20.TransactOpts, spender, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+func (_IERC20 *IERC20Transactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransfer(handler, &_IERC20.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransfer(handler, &_IERC20.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+func (_IERC20 *IERC20Transactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransferFrom(handler, &_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransferFrom(handler, &_IERC20.TransactOpts, sender, recipient, amount)
 }
 
 // IERC20ApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the IERC20 contract.
@@ -912,12 +932,12 @@ func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Call(opts *bind.CallOpts
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.IEthCrossChainManagerTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.IEthCrossChainManagerTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -931,34 +951,46 @@ func (_IEthCrossChainManager *IEthCrossChainManagerCallerRaw) Call(opts *bind.Ca
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.contract.Transact(opts, method, params...)
 }
 
 // CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
 //
 // Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) CrossChain(opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) CrossChain(opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.contract.Transact(opts, "crossChain", _toChainId, _toContract, _method, _txData)
 }
 
-// CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
-//
-// Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
-	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) AsyncCrossChain(handler func(*types.Receipt, error), opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.contract.AsyncTransact(opts, handler, "crossChain", _toChainId, _toContract, _method, _txData)
 }
 
 // CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
 //
 // Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+func (_IEthCrossChainManager *IEthCrossChainManagerSession) AsyncCrossChain(handler func(*types.Receipt, error), _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.Contract.AsyncCrossChain(handler, &_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+// CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
+//
+// Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) AsyncCrossChain(handler func(*types.Receipt, error), _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.Contract.AsyncCrossChain(handler, &_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
 }
 
 // IEthCrossChainManagerProxyABI is the input ABI used to generate the binding from.
@@ -1083,12 +1115,12 @@ func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Call(opts *bin
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.IEthCrossChainManagerProxyTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.IEthCrossChainManagerProxyTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -1102,12 +1134,12 @@ func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyCallerRaw) Call(opt
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -1172,6 +1204,19 @@ func DeployLockProxy(auth *bind.TransactOpts, backend bind.ContractBackend) (com
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &LockProxy{LockProxyCaller: LockProxyCaller{contract: contract}, LockProxyTransactor: LockProxyTransactor{contract: contract}, LockProxyFilterer: LockProxyFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployLockProxy(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(LockProxyABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(LockProxyBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // LockProxy is an auto generated Go binding around a Solidity contract.
@@ -1288,12 +1333,12 @@ func (_LockProxy *LockProxyRaw) Call(opts *bind.CallOpts, result interface{}, me
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_LockProxy *LockProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_LockProxy *LockProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.LockProxyTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_LockProxy *LockProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_LockProxy *LockProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.LockProxyTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -1307,12 +1352,12 @@ func (_LockProxy *LockProxyCallerRaw) Call(opts *bind.CallOpts, result interface
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_LockProxy *LockProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_LockProxy *LockProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -1475,148 +1520,232 @@ func (_LockProxy *LockProxyCallerSession) ProxyHashMap(arg0 uint64) ([]byte, err
 // BindAssetHash is a paid mutator transaction binding the contract method 0xdfe848a5.
 //
 // Solidity: function bindAssetHash(address fromAssetHash, uint64 toChainId, bytes toAssetHash) returns(bool)
-func (_LockProxy *LockProxyTransactor) BindAssetHash(opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) BindAssetHash(opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "bindAssetHash", fromAssetHash, toChainId, toAssetHash)
 }
 
-// BindAssetHash is a paid mutator transaction binding the contract method 0xdfe848a5.
-//
-// Solidity: function bindAssetHash(address fromAssetHash, uint64 toChainId, bytes toAssetHash) returns(bool)
-func (_LockProxy *LockProxySession) BindAssetHash(fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
-	return _LockProxy.Contract.BindAssetHash(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAssetHash)
+func (_LockProxy *LockProxyTransactor) AsyncBindAssetHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "bindAssetHash", fromAssetHash, toChainId, toAssetHash)
 }
 
 // BindAssetHash is a paid mutator transaction binding the contract method 0xdfe848a5.
 //
 // Solidity: function bindAssetHash(address fromAssetHash, uint64 toChainId, bytes toAssetHash) returns(bool)
-func (_LockProxy *LockProxyTransactorSession) BindAssetHash(fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) BindAssetHash(fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.BindAssetHash(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAssetHash)
+}
+
+func (_LockProxy *LockProxySession) AsyncBindAssetHash(handler func(*types.Receipt, error), fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncBindAssetHash(handler, &_LockProxy.TransactOpts, fromAssetHash, toChainId, toAssetHash)
+}
+
+// BindAssetHash is a paid mutator transaction binding the contract method 0xdfe848a5.
+//
+// Solidity: function bindAssetHash(address fromAssetHash, uint64 toChainId, bytes toAssetHash) returns(bool)
+func (_LockProxy *LockProxyTransactorSession) BindAssetHash(fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.BindAssetHash(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAssetHash)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncBindAssetHash(handler func(*types.Receipt, error), fromAssetHash common.Address, toChainId uint64, toAssetHash []byte) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncBindAssetHash(handler, &_LockProxy.TransactOpts, fromAssetHash, toChainId, toAssetHash)
 }
 
 // BindProxyHash is a paid mutator transaction binding the contract method 0x6e5d9c8f.
 //
 // Solidity: function bindProxyHash(uint64 toChainId, bytes targetProxyHash) returns(bool)
-func (_LockProxy *LockProxyTransactor) BindProxyHash(opts *bind.TransactOpts, toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) BindProxyHash(opts *bind.TransactOpts, toChainId uint64, targetProxyHash []byte) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "bindProxyHash", toChainId, targetProxyHash)
 }
 
-// BindProxyHash is a paid mutator transaction binding the contract method 0x6e5d9c8f.
-//
-// Solidity: function bindProxyHash(uint64 toChainId, bytes targetProxyHash) returns(bool)
-func (_LockProxy *LockProxySession) BindProxyHash(toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
-	return _LockProxy.Contract.BindProxyHash(&_LockProxy.TransactOpts, toChainId, targetProxyHash)
+func (_LockProxy *LockProxyTransactor) AsyncBindProxyHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "bindProxyHash", toChainId, targetProxyHash)
 }
 
 // BindProxyHash is a paid mutator transaction binding the contract method 0x6e5d9c8f.
 //
 // Solidity: function bindProxyHash(uint64 toChainId, bytes targetProxyHash) returns(bool)
-func (_LockProxy *LockProxyTransactorSession) BindProxyHash(toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) BindProxyHash(toChainId uint64, targetProxyHash []byte) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.BindProxyHash(&_LockProxy.TransactOpts, toChainId, targetProxyHash)
+}
+
+func (_LockProxy *LockProxySession) AsyncBindProxyHash(handler func(*types.Receipt, error), toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncBindProxyHash(handler, &_LockProxy.TransactOpts, toChainId, targetProxyHash)
+}
+
+// BindProxyHash is a paid mutator transaction binding the contract method 0x6e5d9c8f.
+//
+// Solidity: function bindProxyHash(uint64 toChainId, bytes targetProxyHash) returns(bool)
+func (_LockProxy *LockProxyTransactorSession) BindProxyHash(toChainId uint64, targetProxyHash []byte) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.BindProxyHash(&_LockProxy.TransactOpts, toChainId, targetProxyHash)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncBindProxyHash(handler func(*types.Receipt, error), toChainId uint64, targetProxyHash []byte) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncBindProxyHash(handler, &_LockProxy.TransactOpts, toChainId, targetProxyHash)
 }
 
 // Lock is a paid mutator transaction binding the contract method 0x514e3836.
 //
 // Solidity: function lock(address fromAssetHash, uint64 toChainId, bytes toAddress, uint256 amount) returns(bool)
-func (_LockProxy *LockProxyTransactor) Lock(opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) Lock(opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "lock", fromAssetHash, toChainId, toAddress, amount)
 }
 
-// Lock is a paid mutator transaction binding the contract method 0x514e3836.
-//
-// Solidity: function lock(address fromAssetHash, uint64 toChainId, bytes toAddress, uint256 amount) returns(bool)
-func (_LockProxy *LockProxySession) Lock(fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
-	return _LockProxy.Contract.Lock(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAddress, amount)
+func (_LockProxy *LockProxyTransactor) AsyncLock(handler func(*types.Receipt, error), opts *bind.TransactOpts, fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "lock", fromAssetHash, toChainId, toAddress, amount)
 }
 
 // Lock is a paid mutator transaction binding the contract method 0x514e3836.
 //
 // Solidity: function lock(address fromAssetHash, uint64 toChainId, bytes toAddress, uint256 amount) returns(bool)
-func (_LockProxy *LockProxyTransactorSession) Lock(fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) Lock(fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.Lock(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAddress, amount)
+}
+
+func (_LockProxy *LockProxySession) AsyncLock(handler func(*types.Receipt, error), fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncLock(handler, &_LockProxy.TransactOpts, fromAssetHash, toChainId, toAddress, amount)
+}
+
+// Lock is a paid mutator transaction binding the contract method 0x514e3836.
+//
+// Solidity: function lock(address fromAssetHash, uint64 toChainId, bytes toAddress, uint256 amount) returns(bool)
+func (_LockProxy *LockProxyTransactorSession) Lock(fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.Lock(&_LockProxy.TransactOpts, fromAssetHash, toChainId, toAddress, amount)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncLock(handler func(*types.Receipt, error), fromAssetHash common.Address, toChainId uint64, toAddress []byte, amount *big.Int) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncLock(handler, &_LockProxy.TransactOpts, fromAssetHash, toChainId, toAddress, amount)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_LockProxy *LockProxyTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "renounceOwnership")
 }
 
-// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
-//
-// Solidity: function renounceOwnership() returns()
-func (_LockProxy *LockProxySession) RenounceOwnership() (*types.Transaction, error) {
-	return _LockProxy.Contract.RenounceOwnership(&_LockProxy.TransactOpts)
+func (_LockProxy *LockProxyTransactor) AsyncRenounceOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "renounceOwnership")
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_LockProxy *LockProxyTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.RenounceOwnership(&_LockProxy.TransactOpts)
+}
+
+func (_LockProxy *LockProxySession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncRenounceOwnership(handler, &_LockProxy.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
+//
+// Solidity: function renounceOwnership() returns()
+func (_LockProxy *LockProxyTransactorSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.RenounceOwnership(&_LockProxy.TransactOpts)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncRenounceOwnership(handler, &_LockProxy.TransactOpts)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCCMProxyAddr) returns()
-func (_LockProxy *LockProxyTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCCMProxyAddr common.Address) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCCMProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "setManagerProxy", ethCCMProxyAddr)
 }
 
-// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
-//
-// Solidity: function setManagerProxy(address ethCCMProxyAddr) returns()
-func (_LockProxy *LockProxySession) SetManagerProxy(ethCCMProxyAddr common.Address) (*types.Transaction, error) {
-	return _LockProxy.Contract.SetManagerProxy(&_LockProxy.TransactOpts, ethCCMProxyAddr)
+func (_LockProxy *LockProxyTransactor) AsyncSetManagerProxy(handler func(*types.Receipt, error), opts *bind.TransactOpts, ethCCMProxyAddr common.Address) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "setManagerProxy", ethCCMProxyAddr)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCCMProxyAddr) returns()
-func (_LockProxy *LockProxyTransactorSession) SetManagerProxy(ethCCMProxyAddr common.Address) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) SetManagerProxy(ethCCMProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.SetManagerProxy(&_LockProxy.TransactOpts, ethCCMProxyAddr)
+}
+
+func (_LockProxy *LockProxySession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCCMProxyAddr common.Address) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncSetManagerProxy(handler, &_LockProxy.TransactOpts, ethCCMProxyAddr)
+}
+
+// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
+//
+// Solidity: function setManagerProxy(address ethCCMProxyAddr) returns()
+func (_LockProxy *LockProxyTransactorSession) SetManagerProxy(ethCCMProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.SetManagerProxy(&_LockProxy.TransactOpts, ethCCMProxyAddr)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCCMProxyAddr common.Address) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncSetManagerProxy(handler, &_LockProxy.TransactOpts, ethCCMProxyAddr)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_LockProxy *LockProxyTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_LockProxy *LockProxySession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _LockProxy.Contract.TransferOwnership(&_LockProxy.TransactOpts, newOwner)
+func (_LockProxy *LockProxyTransactor) AsyncTransferOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_LockProxy *LockProxyTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.TransferOwnership(&_LockProxy.TransactOpts, newOwner)
+}
+
+func (_LockProxy *LockProxySession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncTransferOwnership(handler, &_LockProxy.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_LockProxy *LockProxyTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.TransferOwnership(&_LockProxy.TransactOpts, newOwner)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncTransferOwnership(handler, &_LockProxy.TransactOpts, newOwner)
 }
 
 // Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
 //
 // Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_LockProxy *LockProxyTransactor) Unlock(opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+func (_LockProxy *LockProxyTransactor) Unlock(opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.contract.Transact(opts, "unlock", argsBs, fromContractAddr, fromChainId)
 }
 
-// Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
-//
-// Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_LockProxy *LockProxySession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
-	return _LockProxy.Contract.Unlock(&_LockProxy.TransactOpts, argsBs, fromContractAddr, fromChainId)
+func (_LockProxy *LockProxyTransactor) AsyncUnlock(handler func(*types.Receipt, error), opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _LockProxy.contract.AsyncTransact(opts, handler, "unlock", argsBs, fromContractAddr, fromChainId)
 }
 
 // Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
 //
 // Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_LockProxy *LockProxyTransactorSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+func (_LockProxy *LockProxySession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
 	return _LockProxy.Contract.Unlock(&_LockProxy.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+func (_LockProxy *LockProxySession) AsyncUnlock(handler func(*types.Receipt, error), argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncUnlock(handler, &_LockProxy.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+// Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
+//
+// Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
+func (_LockProxy *LockProxyTransactorSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
+	return _LockProxy.Contract.Unlock(&_LockProxy.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+func (_LockProxy *LockProxyTransactorSession) AsyncUnlock(handler func(*types.Receipt, error), argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _LockProxy.Contract.AsyncUnlock(handler, &_LockProxy.TransactOpts, argsBs, fromContractAddr, fromChainId)
 }
 
 // LockProxyBindAssetEventIterator is returned from FilterBindAssetEvent and is used to iterate over the raw logs and unpacked data for BindAssetEvent events raised by the LockProxy contract.
@@ -2572,12 +2701,12 @@ func (_Ownable *OwnableRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Ownable *OwnableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.OwnableTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Ownable *OwnableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Ownable *OwnableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.OwnableTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -2591,12 +2720,12 @@ func (_Ownable *OwnableCallerRaw) Call(opts *bind.CallOpts, result interface{}, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Ownable *OwnableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Ownable *OwnableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -2655,43 +2784,67 @@ func (_Ownable *OwnableCallerSession) Owner() (common.Address, error) {
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.contract.Transact(opts, "renounceOwnership")
 }
 
-// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
-//
-// Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableSession) RenounceOwnership() (*types.Transaction, error) {
-	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+func (_Ownable *OwnableTransactor) AsyncRenounceOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Ownable.contract.AsyncTransact(opts, handler, "renounceOwnership")
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+func (_Ownable *OwnableSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+}
+
+func (_Ownable *OwnableSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncRenounceOwnership(handler, &_Ownable.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
+//
+// Solidity: function renounceOwnership() returns()
+func (_Ownable *OwnableTransactorSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
+	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+}
+
+func (_Ownable *OwnableTransactorSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncRenounceOwnership(handler, &_Ownable.TransactOpts)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+func (_Ownable *OwnableTransactor) AsyncTransferOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.contract.AsyncTransact(opts, handler, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+func (_Ownable *OwnableSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+}
+
+func (_Ownable *OwnableSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncTransferOwnership(handler, &_Ownable.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Ownable *OwnableTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+}
+
+func (_Ownable *OwnableTransactorSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncTransferOwnership(handler, &_Ownable.TransactOpts, newOwner)
 }
 
 // OwnableOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Ownable contract.
@@ -2866,6 +3019,19 @@ func DeploySafeERC20(auth *bind.TransactOpts, backend bind.ContractBackend) (com
 	return address, tx, &SafeERC20{SafeERC20Caller: SafeERC20Caller{contract: contract}, SafeERC20Transactor: SafeERC20Transactor{contract: contract}, SafeERC20Filterer: SafeERC20Filterer{contract: contract}}, nil
 }
 
+func AsyncDeploySafeERC20(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(SafeERC20ABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(SafeERC20Bin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
+}
+
 // SafeERC20 is an auto generated Go binding around a Solidity contract.
 type SafeERC20 struct {
 	SafeERC20Caller     // Read-only binding to the contract
@@ -2980,12 +3146,12 @@ func (_SafeERC20 *SafeERC20Raw) Call(opts *bind.CallOpts, result interface{}, me
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeERC20 *SafeERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeERC20 *SafeERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeERC20.Contract.SafeERC20Transactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeERC20 *SafeERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeERC20 *SafeERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeERC20.Contract.SafeERC20Transactor.contract.Transact(opts, method, params...)
 }
 
@@ -2999,12 +3165,12 @@ func (_SafeERC20 *SafeERC20CallerRaw) Call(opts *bind.CallOpts, result interface
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeERC20 *SafeERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeERC20 *SafeERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeERC20.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeERC20 *SafeERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeERC20 *SafeERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeERC20.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -3026,6 +3192,19 @@ func DeploySafeMath(auth *bind.TransactOpts, backend bind.ContractBackend) (comm
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &SafeMath{SafeMathCaller: SafeMathCaller{contract: contract}, SafeMathTransactor: SafeMathTransactor{contract: contract}, SafeMathFilterer: SafeMathFilterer{contract: contract}}, nil
+}
+
+func AsyncDeploySafeMath(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(SafeMathABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(SafeMathBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // SafeMath is an auto generated Go binding around a Solidity contract.
@@ -3142,12 +3321,12 @@ func (_SafeMath *SafeMathRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeMath *SafeMathRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeMath *SafeMathRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.SafeMathTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.SafeMathTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -3161,12 +3340,12 @@ func (_SafeMath *SafeMathCallerRaw) Call(opts *bind.CallOpts, result interface{}
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -3188,6 +3367,19 @@ func DeployUtils(auth *bind.TransactOpts, backend bind.ContractBackend) (common.
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &Utils{UtilsCaller: UtilsCaller{contract: contract}, UtilsTransactor: UtilsTransactor{contract: contract}, UtilsFilterer: UtilsFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployUtils(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(UtilsABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(UtilsBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // Utils is an auto generated Go binding around a Solidity contract.
@@ -3304,12 +3496,12 @@ func (_Utils *UtilsRaw) Call(opts *bind.CallOpts, result interface{}, method str
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Utils *UtilsRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Utils *UtilsRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.UtilsTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Utils *UtilsRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Utils *UtilsRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.UtilsTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -3323,12 +3515,12 @@ func (_Utils *UtilsCallerRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Utils *UtilsTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Utils *UtilsTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Utils *UtilsTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Utils *UtilsTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -3350,6 +3542,19 @@ func DeployZeroCopySink(auth *bind.TransactOpts, backend bind.ContractBackend) (
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &ZeroCopySink{ZeroCopySinkCaller: ZeroCopySinkCaller{contract: contract}, ZeroCopySinkTransactor: ZeroCopySinkTransactor{contract: contract}, ZeroCopySinkFilterer: ZeroCopySinkFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployZeroCopySink(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(ZeroCopySinkABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(ZeroCopySinkBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // ZeroCopySink is an auto generated Go binding around a Solidity contract.
@@ -3466,12 +3671,12 @@ func (_ZeroCopySink *ZeroCopySinkRaw) Call(opts *bind.CallOpts, result interface
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySink *ZeroCopySinkRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.ZeroCopySinkTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySink *ZeroCopySinkRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.ZeroCopySinkTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -3485,12 +3690,12 @@ func (_ZeroCopySink *ZeroCopySinkCallerRaw) Call(opts *bind.CallOpts, result int
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -3512,6 +3717,19 @@ func DeployZeroCopySource(auth *bind.TransactOpts, backend bind.ContractBackend)
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &ZeroCopySource{ZeroCopySourceCaller: ZeroCopySourceCaller{contract: contract}, ZeroCopySourceTransactor: ZeroCopySourceTransactor{contract: contract}, ZeroCopySourceFilterer: ZeroCopySourceFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployZeroCopySource(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(ZeroCopySourceABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(ZeroCopySourceBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // ZeroCopySource is an auto generated Go binding around a Solidity contract.
@@ -3628,12 +3846,12 @@ func (_ZeroCopySource *ZeroCopySourceRaw) Call(opts *bind.CallOpts, result inter
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySource *ZeroCopySourceRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.ZeroCopySourceTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySource *ZeroCopySourceRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.ZeroCopySourceTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -3647,11 +3865,11 @@ func (_ZeroCopySource *ZeroCopySourceCallerRaw) Call(opts *bind.CallOpts, result
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.contract.Transact(opts, method, params...)
 }
