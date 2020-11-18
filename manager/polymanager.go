@@ -460,14 +460,17 @@ func (this *FiscoSender) transact1(opts *bind2.TransactOpts, contract *ethcommon
 		return nil, err
 	}
 
-	if err = c.transactor.SendTransaction(ensureContext(opts.Context), signedTx); err != nil {
+	_, err = c.transactor.SendTransaction(ensureContext(opts.Context), signedTx)
+	if err != nil {
 		return nil, err
 	}
+
 	return signedTx, nil
 }
 
 func (this *FiscoSender) transact(opts *bind2.TransactOpts, contract ethcommon.Address, amount *big.Int, gasLimit uint64, gasPrice *big.Int, input []byte) (*types2.Transaction, error) {
 	var err error
+	var recp *types2.Receipt
 	//c := this.c
 	//opts.From = ethcommon.HexToAddress("0x34f00110bad3236f01468799d44fe04d7deb25f0")
 	contractabi, err := abi.JSON(strings.NewReader(eccm_abi.EthCrossChainManagerABI))
@@ -560,10 +563,11 @@ func (this *FiscoSender) transact(opts *bind2.TransactOpts, contract ethcommon.A
 	if err != nil {
 		return nil, err
 	}
-	if err := c.transactor.SendTransaction(ensureContext(opts.Context), signedTx); err != nil {
+	if _, err := c.transactor.SendTransaction(ensureContext(opts.Context), signedTx); err != nil {
 		log.Fatal(err)
 		return nil, err
 	}
+	log.Infof("recp %s", recp)
 	return signedTx, nil
 }
 
@@ -601,6 +605,7 @@ func (this *FiscoSender) commitDepositEventsWithHeader(header *polytypes.Header,
 	if res {
 		log.Debugf("already relayed to eth: ( from_chain_id: %d, from_txhash: %x,  param.Txhash: %x)",
 			param.FromChainID, param.TxHash, param.MakeTxParam.TxHash)
+
 		return true
 	}
 	//log.Infof("poly proof with header, height: %d, key: %s, proof: %s", header.Height-1, string(key), proof.AuditPath)
@@ -612,7 +617,7 @@ func (this *FiscoSender) commitDepositEventsWithHeader(header *polytypes.Header,
 	}
 	headerData = header.GetMessage()
 
-	trans, err := eccm.VerifyHeaderAndExecuteTx(this.client.GetTransactOpts(), rawAuditPath, headerData, rawProof, rawAnchor, sigs)
+	trans, _, err := eccm.VerifyHeaderAndExecuteTx(this.client.GetTransactOpts(), rawAuditPath, headerData, rawProof, rawAnchor, sigs)
 	if err != nil {
 		log.Errorf("commitDepositEventsWithHeader - err:" + err.Error())
 		return false
@@ -660,12 +665,12 @@ func (this *FiscoSender) commitHeader(header *polytypes.Header) bool {
 	eccmAddr := ethcommon.HexToAddress(this.config.FiscoConfig.ECCMContractAddress)
 	eccm, err := eccm_abi.NewEthCrossChainManager(eccmAddr, this.client)
 
-	tx, err := eccm.ChangeBookKeeper(this.client.GetTransactOpts(), headerdata, publickeys, sigs)
+	tx, recp, err := eccm.ChangeBookKeeper(this.client.GetTransactOpts(), headerdata, publickeys, sigs)
 	if err != nil {
 		log.Fatal(err)
 		return false
 	}
-	log.Infof("ChangeBookKeeper:%s", tx.Hash().Hex())
+	log.Infof("ChangeBookKeeper:%s,recp:%v", tx.Hash().Hex(), recp.BlockNumber)
 
 	//hash := header.Hash()
 	//txhash := tx.Hash()

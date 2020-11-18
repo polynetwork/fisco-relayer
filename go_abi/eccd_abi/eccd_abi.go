@@ -1,22 +1,6 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-/*
-* Copyright (C) 2020 The poly network Authors
-* This file is part of The poly network library.
-*
-* The poly network is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* The poly network is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU Lesser General Public License for more details.
-* You should have received a copy of the GNU Lesser General Public License
-* along with The poly network . If not, see <http://www.gnu.org/licenses/>.
- */
 package eccd_abi
 
 import (
@@ -160,12 +144,12 @@ func (_Context *ContextRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -179,12 +163,12 @@ func (_Context *ContextCallerRaw) Call(opts *bind.CallOpts, result interface{}, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -233,6 +217,19 @@ func DeployEthCrossChainData(auth *bind.TransactOpts, backend bind.ContractBacke
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &EthCrossChainData{EthCrossChainDataCaller: EthCrossChainDataCaller{contract: contract}, EthCrossChainDataTransactor: EthCrossChainDataTransactor{contract: contract}, EthCrossChainDataFilterer: EthCrossChainDataFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployEthCrossChainData(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(EthCrossChainDataABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(EthCrossChainDataBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // EthCrossChainData is an auto generated Go binding around a Solidity contract.
@@ -349,12 +346,12 @@ func (_EthCrossChainData *EthCrossChainDataRaw) Call(opts *bind.CallOpts, result
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_EthCrossChainData *EthCrossChainDataRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.EthCrossChainDataTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_EthCrossChainData *EthCrossChainDataRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.EthCrossChainDataTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -368,12 +365,12 @@ func (_EthCrossChainData *EthCrossChainDataCallerRaw) Call(opts *bind.CallOpts, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_EthCrossChainData *EthCrossChainDataTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_EthCrossChainData *EthCrossChainDataTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -744,190 +741,298 @@ func (_EthCrossChainData *EthCrossChainDataCallerSession) Paused() (bool, error)
 // MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
 //
 // Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) MarkFromChainTxExist(opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) MarkFromChainTxExist(opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "markFromChainTxExist", fromChainId, fromChainTx)
 }
 
-// MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
-//
-// Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.MarkFromChainTxExist(&_EthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "markFromChainTxExist", fromChainId, fromChainTx)
 }
 
 // MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
 //
 // Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.MarkFromChainTxExist(&_EthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncMarkFromChainTxExist(handler, &_EthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+// MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
+//
+// Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.MarkFromChainTxExist(&_EthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncMarkFromChainTxExist(handler, &_EthCrossChainData.TransactOpts, fromChainId, fromChainTx)
 }
 
 // Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
 //
 // Solidity: function pause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "pause")
 }
 
-// Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
-//
-// Solidity: function pause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) Pause() (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.Pause(&_EthCrossChainData.TransactOpts)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncPause(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "pause")
 }
 
 // Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
 //
 // Solidity: function pause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) Pause() (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) Pause() (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.Pause(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncPause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPause(handler, &_EthCrossChainData.TransactOpts)
+}
+
+// Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
+//
+// Solidity: function pause() returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) Pause() (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.Pause(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncPause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPause(handler, &_EthCrossChainData.TransactOpts)
 }
 
 // PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
 //
 // Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) PutCurEpochConPubKeyBytes(opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) PutCurEpochConPubKeyBytes(opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "putCurEpochConPubKeyBytes", curEpochPkBytes)
 }
 
-// PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
-//
-// Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_EthCrossChainData.TransactOpts, curEpochPkBytes)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "putCurEpochConPubKeyBytes", curEpochPkBytes)
 }
 
 // PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
 //
 // Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_EthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutCurEpochConPubKeyBytes(handler, &_EthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+// PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
+//
+// Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_EthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutCurEpochConPubKeyBytes(handler, &_EthCrossChainData.TransactOpts, curEpochPkBytes)
 }
 
 // PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
 //
 // Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) PutCurEpochStartHeight(opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) PutCurEpochStartHeight(opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "putCurEpochStartHeight", curEpochStartHeight)
 }
 
-// PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
-//
-// Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.PutCurEpochStartHeight(&_EthCrossChainData.TransactOpts, curEpochStartHeight)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "putCurEpochStartHeight", curEpochStartHeight)
 }
 
 // PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
 //
 // Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.PutCurEpochStartHeight(&_EthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutCurEpochStartHeight(handler, &_EthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+// PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
+//
+// Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.PutCurEpochStartHeight(&_EthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutCurEpochStartHeight(handler, &_EthCrossChainData.TransactOpts, curEpochStartHeight)
 }
 
 // PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
 //
 // Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) PutEthTxHash(opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) PutEthTxHash(opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "putEthTxHash", ethTxHash)
 }
 
-// PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
-//
-// Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.PutEthTxHash(&_EthCrossChainData.TransactOpts, ethTxHash)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncPutEthTxHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "putEthTxHash", ethTxHash)
 }
 
 // PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
 //
 // Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.PutEthTxHash(&_EthCrossChainData.TransactOpts, ethTxHash)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncPutEthTxHash(handler func(*types.Receipt, error), ethTxHash [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutEthTxHash(handler, &_EthCrossChainData.TransactOpts, ethTxHash)
+}
+
+// PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
+//
+// Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.PutEthTxHash(&_EthCrossChainData.TransactOpts, ethTxHash)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncPutEthTxHash(handler func(*types.Receipt, error), ethTxHash [32]byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutEthTxHash(handler, &_EthCrossChainData.TransactOpts, ethTxHash)
 }
 
 // PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
 //
 // Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) PutExtraData(opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) PutExtraData(opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "putExtraData", key1, key2, value)
 }
 
-// PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
-//
-// Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.PutExtraData(&_EthCrossChainData.TransactOpts, key1, key2, value)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncPutExtraData(handler func(*types.Receipt, error), opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "putExtraData", key1, key2, value)
 }
 
 // PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
 //
 // Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.PutExtraData(&_EthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncPutExtraData(handler func(*types.Receipt, error), key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutExtraData(handler, &_EthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+// PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
+//
+// Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.PutExtraData(&_EthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncPutExtraData(handler func(*types.Receipt, error), key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncPutExtraData(handler, &_EthCrossChainData.TransactOpts, key1, key2, value)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_EthCrossChainData *EthCrossChainDataTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "renounceOwnership")
 }
 
-// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
-//
-// Solidity: function renounceOwnership() returns()
-func (_EthCrossChainData *EthCrossChainDataSession) RenounceOwnership() (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.RenounceOwnership(&_EthCrossChainData.TransactOpts)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncRenounceOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "renounceOwnership")
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.RenounceOwnership(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncRenounceOwnership(handler, &_EthCrossChainData.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
+//
+// Solidity: function renounceOwnership() returns()
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.RenounceOwnership(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncRenounceOwnership(handler, &_EthCrossChainData.TransactOpts)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_EthCrossChainData *EthCrossChainDataTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_EthCrossChainData *EthCrossChainDataSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.TransferOwnership(&_EthCrossChainData.TransactOpts, newOwner)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncTransferOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.TransferOwnership(&_EthCrossChainData.TransactOpts, newOwner)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncTransferOwnership(handler, &_EthCrossChainData.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.TransferOwnership(&_EthCrossChainData.TransactOpts, newOwner)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncTransferOwnership(handler, &_EthCrossChainData.TransactOpts, newOwner)
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x63c37526.
 //
 // Solidity: function unpause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.contract.Transact(opts, "unpause")
 }
 
-// Unpause is a paid mutator transaction binding the contract method 0x63c37526.
-//
-// Solidity: function unpause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataSession) Unpause() (*types.Transaction, error) {
-	return _EthCrossChainData.Contract.Unpause(&_EthCrossChainData.TransactOpts)
+func (_EthCrossChainData *EthCrossChainDataTransactor) AsyncUnpause(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _EthCrossChainData.contract.AsyncTransact(opts, handler, "unpause")
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x63c37526.
 //
 // Solidity: function unpause() returns(bool)
-func (_EthCrossChainData *EthCrossChainDataTransactorSession) Unpause() (*types.Transaction, error) {
+func (_EthCrossChainData *EthCrossChainDataSession) Unpause() (*types.Transaction, *types.Receipt, error) {
 	return _EthCrossChainData.Contract.Unpause(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataSession) AsyncUnpause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncUnpause(handler, &_EthCrossChainData.TransactOpts)
+}
+
+// Unpause is a paid mutator transaction binding the contract method 0x63c37526.
+//
+// Solidity: function unpause() returns(bool)
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) Unpause() (*types.Transaction, *types.Receipt, error) {
+	return _EthCrossChainData.Contract.Unpause(&_EthCrossChainData.TransactOpts)
+}
+
+func (_EthCrossChainData *EthCrossChainDataTransactorSession) AsyncUnpause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _EthCrossChainData.Contract.AsyncUnpause(handler, &_EthCrossChainData.TransactOpts)
 }
 
 // EthCrossChainDataOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the EthCrossChainData contract.
@@ -1484,12 +1589,12 @@ func (_IEthCrossChainData *IEthCrossChainDataRaw) Call(opts *bind.CallOpts, resu
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainData *IEthCrossChainDataRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.IEthCrossChainDataTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainData *IEthCrossChainDataRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.IEthCrossChainDataTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -1503,12 +1608,12 @@ func (_IEthCrossChainData *IEthCrossChainDataCallerRaw) Call(opts *bind.CallOpts
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainData *IEthCrossChainDataTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainData *IEthCrossChainDataTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -1697,169 +1802,265 @@ func (_IEthCrossChainData *IEthCrossChainDataCallerSession) Paused() (bool, erro
 // MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
 //
 // Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) MarkFromChainTxExist(opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) MarkFromChainTxExist(opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "markFromChainTxExist", fromChainId, fromChainTx)
 }
 
-// MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
-//
-// Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.MarkFromChainTxExist(&_IEthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), opts *bind.TransactOpts, fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "markFromChainTxExist", fromChainId, fromChainTx)
 }
 
 // MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
 //
 // Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.MarkFromChainTxExist(&_IEthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncMarkFromChainTxExist(handler, &_IEthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+// MarkFromChainTxExist is a paid mutator transaction binding the contract method 0x1ce20756.
+//
+// Solidity: function markFromChainTxExist(uint64 fromChainId, bytes32 fromChainTx) returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) MarkFromChainTxExist(fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.MarkFromChainTxExist(&_IEthCrossChainData.TransactOpts, fromChainId, fromChainTx)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncMarkFromChainTxExist(handler func(*types.Receipt, error), fromChainId uint64, fromChainTx [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncMarkFromChainTxExist(handler, &_IEthCrossChainData.TransactOpts, fromChainId, fromChainTx)
 }
 
 // Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
 //
 // Solidity: function pause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) Pause(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "pause")
 }
 
-// Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
-//
-// Solidity: function pause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) Pause() (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.Pause(&_IEthCrossChainData.TransactOpts)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncPause(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "pause")
 }
 
 // Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
 //
 // Solidity: function pause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) Pause() (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) Pause() (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.Pause(&_IEthCrossChainData.TransactOpts)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncPause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPause(handler, &_IEthCrossChainData.TransactOpts)
+}
+
+// Pause is a paid mutator transaction binding the contract method 0xf4fbb0c8.
+//
+// Solidity: function pause() returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) Pause() (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.Pause(&_IEthCrossChainData.TransactOpts)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncPause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPause(handler, &_IEthCrossChainData.TransactOpts)
 }
 
 // PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
 //
 // Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutCurEpochConPubKeyBytes(opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutCurEpochConPubKeyBytes(opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "putCurEpochConPubKeyBytes", curEpochPkBytes)
 }
 
-// PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
-//
-// Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_IEthCrossChainData.TransactOpts, curEpochPkBytes)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), opts *bind.TransactOpts, curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "putCurEpochConPubKeyBytes", curEpochPkBytes)
 }
 
 // PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
 //
 // Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_IEthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutCurEpochConPubKeyBytes(handler, &_IEthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+// PutCurEpochConPubKeyBytes is a paid mutator transaction binding the contract method 0x795c2da6.
+//
+// Solidity: function putCurEpochConPubKeyBytes(bytes curEpochPkBytes) returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutCurEpochConPubKeyBytes(curEpochPkBytes []byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.PutCurEpochConPubKeyBytes(&_IEthCrossChainData.TransactOpts, curEpochPkBytes)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncPutCurEpochConPubKeyBytes(handler func(*types.Receipt, error), curEpochPkBytes []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutCurEpochConPubKeyBytes(handler, &_IEthCrossChainData.TransactOpts, curEpochPkBytes)
 }
 
 // PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
 //
 // Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutCurEpochStartHeight(opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutCurEpochStartHeight(opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "putCurEpochStartHeight", curEpochStartHeight)
 }
 
-// PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
-//
-// Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.PutCurEpochStartHeight(&_IEthCrossChainData.TransactOpts, curEpochStartHeight)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), opts *bind.TransactOpts, curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "putCurEpochStartHeight", curEpochStartHeight)
 }
 
 // PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
 //
 // Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.PutCurEpochStartHeight(&_IEthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutCurEpochStartHeight(handler, &_IEthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+// PutCurEpochStartHeight is a paid mutator transaction binding the contract method 0x9b9272ae.
+//
+// Solidity: function putCurEpochStartHeight(uint32 curEpochStartHeight) returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutCurEpochStartHeight(curEpochStartHeight uint32) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.PutCurEpochStartHeight(&_IEthCrossChainData.TransactOpts, curEpochStartHeight)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncPutCurEpochStartHeight(handler func(*types.Receipt, error), curEpochStartHeight uint32) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutCurEpochStartHeight(handler, &_IEthCrossChainData.TransactOpts, curEpochStartHeight)
 }
 
 // PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
 //
 // Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutEthTxHash(opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutEthTxHash(opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "putEthTxHash", ethTxHash)
 }
 
-// PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
-//
-// Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.PutEthTxHash(&_IEthCrossChainData.TransactOpts, ethTxHash)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncPutEthTxHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, ethTxHash [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "putEthTxHash", ethTxHash)
 }
 
 // PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
 //
 // Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.PutEthTxHash(&_IEthCrossChainData.TransactOpts, ethTxHash)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncPutEthTxHash(handler func(*types.Receipt, error), ethTxHash [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutEthTxHash(handler, &_IEthCrossChainData.TransactOpts, ethTxHash)
+}
+
+// PutEthTxHash is a paid mutator transaction binding the contract method 0x93645d57.
+//
+// Solidity: function putEthTxHash(bytes32 ethTxHash) returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutEthTxHash(ethTxHash [32]byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.PutEthTxHash(&_IEthCrossChainData.TransactOpts, ethTxHash)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncPutEthTxHash(handler func(*types.Receipt, error), ethTxHash [32]byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutEthTxHash(handler, &_IEthCrossChainData.TransactOpts, ethTxHash)
 }
 
 // PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
 //
 // Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutExtraData(opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) PutExtraData(opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "putExtraData", key1, key2, value)
 }
 
-// PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
-//
-// Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.PutExtraData(&_IEthCrossChainData.TransactOpts, key1, key2, value)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncPutExtraData(handler func(*types.Receipt, error), opts *bind.TransactOpts, key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "putExtraData", key1, key2, value)
 }
 
 // PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
 //
 // Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.PutExtraData(&_IEthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncPutExtraData(handler func(*types.Receipt, error), key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutExtraData(handler, &_IEthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+// PutExtraData is a paid mutator transaction binding the contract method 0x351f0ea0.
+//
+// Solidity: function putExtraData(bytes32 key1, bytes32 key2, bytes value) returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) PutExtraData(key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.PutExtraData(&_IEthCrossChainData.TransactOpts, key1, key2, value)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncPutExtraData(handler func(*types.Receipt, error), key1 [32]byte, key2 [32]byte, value []byte) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncPutExtraData(handler, &_IEthCrossChainData.TransactOpts, key1, key2, value)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_IEthCrossChainData *IEthCrossChainDataSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.TransferOwnership(&_IEthCrossChainData.TransactOpts, newOwner)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncTransferOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.TransferOwnership(&_IEthCrossChainData.TransactOpts, newOwner)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncTransferOwnership(handler, &_IEthCrossChainData.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.TransferOwnership(&_IEthCrossChainData.TransactOpts, newOwner)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncTransferOwnership(handler, &_IEthCrossChainData.TransactOpts, newOwner)
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x63c37526.
 //
 // Solidity: function unpause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) Unpause(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.contract.Transact(opts, "unpause")
 }
 
-// Unpause is a paid mutator transaction binding the contract method 0x63c37526.
-//
-// Solidity: function unpause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataSession) Unpause() (*types.Transaction, error) {
-	return _IEthCrossChainData.Contract.Unpause(&_IEthCrossChainData.TransactOpts)
+func (_IEthCrossChainData *IEthCrossChainDataTransactor) AsyncUnpause(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IEthCrossChainData.contract.AsyncTransact(opts, handler, "unpause")
 }
 
 // Unpause is a paid mutator transaction binding the contract method 0x63c37526.
 //
 // Solidity: function unpause() returns(bool)
-func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) Unpause() (*types.Transaction, error) {
+func (_IEthCrossChainData *IEthCrossChainDataSession) Unpause() (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainData.Contract.Unpause(&_IEthCrossChainData.TransactOpts)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataSession) AsyncUnpause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncUnpause(handler, &_IEthCrossChainData.TransactOpts)
+}
+
+// Unpause is a paid mutator transaction binding the contract method 0x63c37526.
+//
+// Solidity: function unpause() returns(bool)
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) Unpause() (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainData.Contract.Unpause(&_IEthCrossChainData.TransactOpts)
+}
+
+func (_IEthCrossChainData *IEthCrossChainDataTransactorSession) AsyncUnpause(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _IEthCrossChainData.Contract.AsyncUnpause(handler, &_IEthCrossChainData.TransactOpts)
 }
 
 // OwnableABI is the input ABI used to generate the binding from.
@@ -1987,12 +2188,12 @@ func (_Ownable *OwnableRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Ownable *OwnableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.OwnableTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Ownable *OwnableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Ownable *OwnableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.OwnableTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -2006,12 +2207,12 @@ func (_Ownable *OwnableCallerRaw) Call(opts *bind.CallOpts, result interface{}, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Ownable *OwnableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Ownable *OwnableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -2070,43 +2271,67 @@ func (_Ownable *OwnableCallerSession) Owner() (common.Address, error) {
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.contract.Transact(opts, "renounceOwnership")
 }
 
-// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
-//
-// Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableSession) RenounceOwnership() (*types.Transaction, error) {
-	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+func (_Ownable *OwnableTransactor) AsyncRenounceOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Ownable.contract.AsyncTransact(opts, handler, "renounceOwnership")
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
 //
 // Solidity: function renounceOwnership() returns()
-func (_Ownable *OwnableTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+func (_Ownable *OwnableSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+}
+
+func (_Ownable *OwnableSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncRenounceOwnership(handler, &_Ownable.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0xd86e29e2.
+//
+// Solidity: function renounceOwnership() returns()
+func (_Ownable *OwnableTransactorSession) RenounceOwnership() (*types.Transaction, *types.Receipt, error) {
+	return _Ownable.Contract.RenounceOwnership(&_Ownable.TransactOpts)
+}
+
+func (_Ownable *OwnableTransactorSession) AsyncRenounceOwnership(handler func(*types.Receipt, error)) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncRenounceOwnership(handler, &_Ownable.TransactOpts)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+func (_Ownable *OwnableTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.contract.Transact(opts, "transferOwnership", newOwner)
 }
 
-// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+func (_Ownable *OwnableTransactor) AsyncTransferOwnership(handler func(*types.Receipt, error), opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.contract.AsyncTransact(opts, handler, "transferOwnership", newOwner)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
-func (_Ownable *OwnableTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+func (_Ownable *OwnableSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+}
+
+func (_Ownable *OwnableSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncTransferOwnership(handler, &_Ownable.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0x16cad12a.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_Ownable *OwnableTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _Ownable.Contract.TransferOwnership(&_Ownable.TransactOpts, newOwner)
+}
+
+func (_Ownable *OwnableTransactorSession) AsyncTransferOwnership(handler func(*types.Receipt, error), newOwner common.Address) (*types.Transaction, error) {
+	return _Ownable.Contract.AsyncTransferOwnership(handler, &_Ownable.TransactOpts, newOwner)
 }
 
 // OwnableOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Ownable contract.
@@ -2383,12 +2608,12 @@ func (_Pausable *PausableRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pausable *PausableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Pausable *PausableRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Pausable.Contract.PausableTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pausable *PausableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Pausable *PausableRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Pausable.Contract.PausableTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -2402,12 +2627,12 @@ func (_Pausable *PausableCallerRaw) Call(opts *bind.CallOpts, result interface{}
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pausable *PausableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Pausable *PausableTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Pausable.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pausable *PausableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Pausable *PausableTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Pausable.Contract.contract.Transact(opts, method, params...)
 }
 

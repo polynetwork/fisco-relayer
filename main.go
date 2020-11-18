@@ -91,15 +91,11 @@ func startServer(ctx *cli.Context) {
 
 	ConfigPath = ctx.GlobalString(cmd.GetFlagName(cmd.ConfigPathFlag))
 
-	ethstart := ctx.GlobalUint64(cmd.GetFlagName(cmd.EthStartFlag))
-	if ethstart > 0 {
-		StartHeight = ethstart
-	}
-
 	StartForceHeight = 0
 	ethstartforce := ctx.GlobalUint64(cmd.GetFlagName(cmd.EthStartForceFlag))
 	if ethstartforce > 0 {
 		StartForceHeight = ethstartforce
+		StartHeight = ethstartforce
 	}
 	polyStart := ctx.GlobalUint64(cmd.GetFlagName(cmd.PolyStartFlag))
 	if polyStart > 0 {
@@ -124,9 +120,10 @@ func startServer(ctx *cli.Context) {
 	// create fisco sdk
 	ConfigPath = ctx.GlobalString(cmd.GetFlagName(cmd.ConfigPathFisco))
 
-	config := &conf.ParseConfig(ConfigPath)[0]
+	configs, err := conf.ParseConfigFile(ConfigPath)
+	//config := &conf.ParseConfigFile(ConfigPath)[0]
 
-	servConfig.Config = config
+	servConfig.Config = &configs[0]
 
 	fiscosdk, err := client.Dial(servConfig.Config)
 	if err != nil {

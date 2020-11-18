@@ -83,8 +83,8 @@ var (
 	}
 
 	EthStartForceFlag = cli.Uint64Flag{
-		Name:  "ethereumforce",
-		Usage: "eth start block height ",
+		Name:  "fiscoforce",
+		Usage: "fisco start block height ",
 		Value: uint64(0),
 	}
 

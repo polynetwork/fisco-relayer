@@ -1,22 +1,6 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-/*
-* Copyright (C) 2020 The poly network Authors
-* This file is part of The poly network library.
-*
-* The poly network is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* The poly network is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU Lesser General Public License for more details.
-* You should have received a copy of the GNU Lesser General Public License
-* along with The poly network . If not, see <http://www.gnu.org/licenses/>.
- */
 package btcx_abi
 
 import (
@@ -88,6 +72,19 @@ func DeployBTCX(auth *bind.TransactOpts, backend bind.ContractBackend, _redeemSc
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &BTCX{BTCXCaller: BTCXCaller{contract: contract}, BTCXTransactor: BTCXTransactor{contract: contract}, BTCXFilterer: BTCXFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployBTCX(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend, _redeemScript []byte) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(BTCXABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(BTCXBin), backend, _redeemScript)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // BTCX is an auto generated Go binding around a Solidity contract.
@@ -204,12 +201,12 @@ func (_BTCX *BTCXRaw) Call(opts *bind.CallOpts, result interface{}, method strin
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_BTCX *BTCXRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_BTCX *BTCXRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.BTCXTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_BTCX *BTCXRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_BTCX *BTCXRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.BTCXTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -223,12 +220,12 @@ func (_BTCX *BTCXCallerRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_BTCX *BTCXTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_BTCX *BTCXTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -521,253 +518,397 @@ func (_BTCX *BTCXCallerSession) TotalSupply() (*big.Int, error) {
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_BTCX *BTCXSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.Approve(&_BTCX.TransactOpts, spender, amount)
+func (_BTCX *BTCXTransactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Approve(&_BTCX.TransactOpts, spender, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncApprove(handler, &_BTCX.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Approve(&_BTCX.TransactOpts, spender, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncApprove(handler, &_BTCX.TransactOpts, spender, amount)
 }
 
 // BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
 //
 // Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_BTCX *BTCXTransactor) BindAssetHash(opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) BindAssetHash(opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "bindAssetHash", chainId, contractAddr)
 }
 
-// BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
-//
-// Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_BTCX *BTCXSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, error) {
-	return _BTCX.Contract.BindAssetHash(&_BTCX.TransactOpts, chainId, contractAddr)
+func (_BTCX *BTCXTransactor) AsyncBindAssetHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "bindAssetHash", chainId, contractAddr)
 }
 
 // BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
 //
 // Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_BTCX *BTCXTransactorSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.BindAssetHash(&_BTCX.TransactOpts, chainId, contractAddr)
+}
+
+func (_BTCX *BTCXSession) AsyncBindAssetHash(handler func(*types.Receipt, error), chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncBindAssetHash(handler, &_BTCX.TransactOpts, chainId, contractAddr)
+}
+
+// BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
+//
+// Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
+func (_BTCX *BTCXTransactorSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.BindAssetHash(&_BTCX.TransactOpts, chainId, contractAddr)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncBindAssetHash(handler func(*types.Receipt, error), chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncBindAssetHash(handler, &_BTCX.TransactOpts, chainId, contractAddr)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x391edc16.
 //
 // Solidity: function burn(uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactor) Burn(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Burn(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "burn", amount)
 }
 
-// Burn is a paid mutator transaction binding the contract method 0x391edc16.
-//
-// Solidity: function burn(uint256 amount) returns(bool)
-func (_BTCX *BTCXSession) Burn(amount *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.Burn(&_BTCX.TransactOpts, amount)
+func (_BTCX *BTCXTransactor) AsyncBurn(handler func(*types.Receipt, error), opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "burn", amount)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x391edc16.
 //
 // Solidity: function burn(uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) Burn(amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Burn(amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Burn(&_BTCX.TransactOpts, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncBurn(handler func(*types.Receipt, error), amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncBurn(handler, &_BTCX.TransactOpts, amount)
+}
+
+// Burn is a paid mutator transaction binding the contract method 0x391edc16.
+//
+// Solidity: function burn(uint256 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) Burn(amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Burn(&_BTCX.TransactOpts, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncBurn(handler func(*types.Receipt, error), amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncBurn(handler, &_BTCX.TransactOpts, amount)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_BTCX *BTCXTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_BTCX *BTCXSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.DecreaseAllowance(&_BTCX.TransactOpts, spender, subtractedValue)
+func (_BTCX *BTCXTransactor) AsyncDecreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "decreaseAllowance", spender, subtractedValue)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_BTCX *BTCXTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.DecreaseAllowance(&_BTCX.TransactOpts, spender, subtractedValue)
+}
+
+func (_BTCX *BTCXSession) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncDecreaseAllowance(handler, &_BTCX.TransactOpts, spender, subtractedValue)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_BTCX *BTCXTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.DecreaseAllowance(&_BTCX.TransactOpts, spender, subtractedValue)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncDecreaseAllowance(handler, &_BTCX.TransactOpts, spender, subtractedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_BTCX *BTCXTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "increaseAllowance", spender, addedValue)
 }
 
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_BTCX *BTCXSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.IncreaseAllowance(&_BTCX.TransactOpts, spender, addedValue)
+func (_BTCX *BTCXTransactor) AsyncIncreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "increaseAllowance", spender, addedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_BTCX *BTCXTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.IncreaseAllowance(&_BTCX.TransactOpts, spender, addedValue)
+}
+
+func (_BTCX *BTCXSession) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncIncreaseAllowance(handler, &_BTCX.TransactOpts, spender, addedValue)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_BTCX *BTCXTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.IncreaseAllowance(&_BTCX.TransactOpts, spender, addedValue)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncIncreaseAllowance(handler, &_BTCX.TransactOpts, spender, addedValue)
 }
 
 // Lock is a paid mutator transaction binding the contract method 0xbb39e9b1.
 //
 // Solidity: function lock(uint64 toChainId, bytes toUserAddr, uint64 amount) returns(bool)
-func (_BTCX *BTCXTransactor) Lock(opts *bind.TransactOpts, toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Lock(opts *bind.TransactOpts, toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "lock", toChainId, toUserAddr, amount)
 }
 
-// Lock is a paid mutator transaction binding the contract method 0xbb39e9b1.
-//
-// Solidity: function lock(uint64 toChainId, bytes toUserAddr, uint64 amount) returns(bool)
-func (_BTCX *BTCXSession) Lock(toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
-	return _BTCX.Contract.Lock(&_BTCX.TransactOpts, toChainId, toUserAddr, amount)
+func (_BTCX *BTCXTransactor) AsyncLock(handler func(*types.Receipt, error), opts *bind.TransactOpts, toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "lock", toChainId, toUserAddr, amount)
 }
 
 // Lock is a paid mutator transaction binding the contract method 0xbb39e9b1.
 //
 // Solidity: function lock(uint64 toChainId, bytes toUserAddr, uint64 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) Lock(toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Lock(toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Lock(&_BTCX.TransactOpts, toChainId, toUserAddr, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncLock(handler func(*types.Receipt, error), toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncLock(handler, &_BTCX.TransactOpts, toChainId, toUserAddr, amount)
+}
+
+// Lock is a paid mutator transaction binding the contract method 0xbb39e9b1.
+//
+// Solidity: function lock(uint64 toChainId, bytes toUserAddr, uint64 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) Lock(toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Lock(&_BTCX.TransactOpts, toChainId, toUserAddr, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncLock(handler func(*types.Receipt, error), toChainId uint64, toUserAddr []byte, amount uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncLock(handler, &_BTCX.TransactOpts, toChainId, toUserAddr, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
 //
 // Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "mint", account, amount)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
-//
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_BTCX *BTCXSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.Mint(&_BTCX.TransactOpts, account, amount)
+func (_BTCX *BTCXTransactor) AsyncMint(handler func(*types.Receipt, error), opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "mint", account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
 //
 // Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Mint(&_BTCX.TransactOpts, account, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncMint(handler func(*types.Receipt, error), account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncMint(handler, &_BTCX.TransactOpts, account, amount)
+}
+
+// Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
+//
+// Solidity: function mint(address account, uint256 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Mint(&_BTCX.TransactOpts, account, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncMint(handler func(*types.Receipt, error), account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncMint(handler, &_BTCX.TransactOpts, account, amount)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_BTCX *BTCXTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "setManagerProxy", ethCrossChainManagerProxyAddr)
 }
 
-// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
-//
-// Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_BTCX *BTCXSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
-	return _BTCX.Contract.SetManagerProxy(&_BTCX.TransactOpts, ethCrossChainManagerProxyAddr)
+func (_BTCX *BTCXTransactor) AsyncSetManagerProxy(handler func(*types.Receipt, error), opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "setManagerProxy", ethCrossChainManagerProxyAddr)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_BTCX *BTCXTransactorSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.SetManagerProxy(&_BTCX.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+func (_BTCX *BTCXSession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncSetManagerProxy(handler, &_BTCX.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
+//
+// Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
+func (_BTCX *BTCXTransactorSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.SetManagerProxy(&_BTCX.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncSetManagerProxy(handler, &_BTCX.TransactOpts, ethCrossChainManagerProxyAddr)
 }
 
 // SetMinimumLimit is a paid mutator transaction binding the contract method 0x0458b76d.
 //
 // Solidity: function setMinimumLimit(uint64 minimumTransferLimit) returns(bool)
-func (_BTCX *BTCXTransactor) SetMinimumLimit(opts *bind.TransactOpts, minimumTransferLimit uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) SetMinimumLimit(opts *bind.TransactOpts, minimumTransferLimit uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "setMinimumLimit", minimumTransferLimit)
 }
 
-// SetMinimumLimit is a paid mutator transaction binding the contract method 0x0458b76d.
-//
-// Solidity: function setMinimumLimit(uint64 minimumTransferLimit) returns(bool)
-func (_BTCX *BTCXSession) SetMinimumLimit(minimumTransferLimit uint64) (*types.Transaction, error) {
-	return _BTCX.Contract.SetMinimumLimit(&_BTCX.TransactOpts, minimumTransferLimit)
+func (_BTCX *BTCXTransactor) AsyncSetMinimumLimit(handler func(*types.Receipt, error), opts *bind.TransactOpts, minimumTransferLimit uint64) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "setMinimumLimit", minimumTransferLimit)
 }
 
 // SetMinimumLimit is a paid mutator transaction binding the contract method 0x0458b76d.
 //
 // Solidity: function setMinimumLimit(uint64 minimumTransferLimit) returns(bool)
-func (_BTCX *BTCXTransactorSession) SetMinimumLimit(minimumTransferLimit uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) SetMinimumLimit(minimumTransferLimit uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.SetMinimumLimit(&_BTCX.TransactOpts, minimumTransferLimit)
+}
+
+func (_BTCX *BTCXSession) AsyncSetMinimumLimit(handler func(*types.Receipt, error), minimumTransferLimit uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncSetMinimumLimit(handler, &_BTCX.TransactOpts, minimumTransferLimit)
+}
+
+// SetMinimumLimit is a paid mutator transaction binding the contract method 0x0458b76d.
+//
+// Solidity: function setMinimumLimit(uint64 minimumTransferLimit) returns(bool)
+func (_BTCX *BTCXTransactorSession) SetMinimumLimit(minimumTransferLimit uint64) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.SetMinimumLimit(&_BTCX.TransactOpts, minimumTransferLimit)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncSetMinimumLimit(handler func(*types.Receipt, error), minimumTransferLimit uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncSetMinimumLimit(handler, &_BTCX.TransactOpts, minimumTransferLimit)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.Transfer(&_BTCX.TransactOpts, recipient, amount)
+func (_BTCX *BTCXTransactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Transfer(&_BTCX.TransactOpts, recipient, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncTransfer(handler, &_BTCX.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Transfer(&_BTCX.TransactOpts, recipient, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncTransfer(handler, &_BTCX.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _BTCX.Contract.TransferFrom(&_BTCX.TransactOpts, sender, recipient, amount)
+func (_BTCX *BTCXTransactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_BTCX *BTCXTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.TransferFrom(&_BTCX.TransactOpts, sender, recipient, amount)
+}
+
+func (_BTCX *BTCXSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncTransferFrom(handler, &_BTCX.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_BTCX *BTCXTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.TransferFrom(&_BTCX.TransactOpts, sender, recipient, amount)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncTransferFrom(handler, &_BTCX.TransactOpts, sender, recipient, amount)
 }
 
 // Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
 //
 // Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_BTCX *BTCXTransactor) Unlock(opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXTransactor) Unlock(opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.contract.Transact(opts, "unlock", argsBs, fromContractAddr, fromChainId)
 }
 
-// Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
-//
-// Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_BTCX *BTCXSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
-	return _BTCX.Contract.Unlock(&_BTCX.TransactOpts, argsBs, fromContractAddr, fromChainId)
+func (_BTCX *BTCXTransactor) AsyncUnlock(handler func(*types.Receipt, error), opts *bind.TransactOpts, argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _BTCX.contract.AsyncTransact(opts, handler, "unlock", argsBs, fromContractAddr, fromChainId)
 }
 
 // Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
 //
 // Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
-func (_BTCX *BTCXTransactorSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+func (_BTCX *BTCXSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
 	return _BTCX.Contract.Unlock(&_BTCX.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+func (_BTCX *BTCXSession) AsyncUnlock(handler func(*types.Receipt, error), argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncUnlock(handler, &_BTCX.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+// Unlock is a paid mutator transaction binding the contract method 0x4d7ee918.
+//
+// Solidity: function unlock(bytes argsBs, bytes fromContractAddr, uint64 fromChainId) returns(bool)
+func (_BTCX *BTCXTransactorSession) Unlock(argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, *types.Receipt, error) {
+	return _BTCX.Contract.Unlock(&_BTCX.TransactOpts, argsBs, fromContractAddr, fromChainId)
+}
+
+func (_BTCX *BTCXTransactorSession) AsyncUnlock(handler func(*types.Receipt, error), argsBs []byte, fromContractAddr []byte, fromChainId uint64) (*types.Transaction, error) {
+	return _BTCX.Contract.AsyncUnlock(handler, &_BTCX.TransactOpts, argsBs, fromContractAddr, fromChainId)
 }
 
 // BTCXApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the BTCX contract.
@@ -1733,12 +1874,12 @@ func (_Context *ContextRaw) Call(opts *bind.CallOpts, result interface{}, method
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.ContextTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -1752,12 +1893,12 @@ func (_Context *ContextCallerRaw) Call(opts *bind.CallOpts, result interface{}, 
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Context *ContextTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Context.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -1791,6 +1932,19 @@ func DeployERC20(auth *bind.TransactOpts, backend bind.ContractBackend) (common.
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &ERC20{ERC20Caller: ERC20Caller{contract: contract}, ERC20Transactor: ERC20Transactor{contract: contract}, ERC20Filterer: ERC20Filterer{contract: contract}}, nil
+}
+
+func AsyncDeployERC20(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(ERC20ABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(ERC20Bin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // ERC20 is an auto generated Go binding around a Solidity contract.
@@ -1907,12 +2061,12 @@ func (_ERC20 *ERC20Raw) Call(opts *bind.CallOpts, result interface{}, method str
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20 *ERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20 *ERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.ERC20Transactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20 *ERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20 *ERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.ERC20Transactor.contract.Transact(opts, method, params...)
 }
 
@@ -1926,12 +2080,12 @@ func (_ERC20 *ERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20 *ERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20 *ERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20 *ERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20 *ERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -2016,106 +2170,166 @@ func (_ERC20 *ERC20CallerSession) TotalSupply() (*big.Int, error) {
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Approve(&_ERC20.TransactOpts, spender, amount)
+func (_ERC20 *ERC20Transactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.Approve(&_ERC20.TransactOpts, spender, amount)
+}
+
+func (_ERC20 *ERC20Session) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncApprove(handler, &_ERC20.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_ERC20 *ERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20.Contract.Approve(&_ERC20.TransactOpts, spender, amount)
+}
+
+func (_ERC20 *ERC20TransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncApprove(handler, &_ERC20.TransactOpts, spender, amount)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20Transactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Transactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20Session) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.DecreaseAllowance(&_ERC20.TransactOpts, spender, subtractedValue)
+func (_ERC20 *ERC20Transactor) AsyncDecreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.contract.AsyncTransact(opts, handler, "decreaseAllowance", spender, subtractedValue)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20 *ERC20TransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Session) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.DecreaseAllowance(&_ERC20.TransactOpts, spender, subtractedValue)
+}
+
+func (_ERC20 *ERC20Session) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncDecreaseAllowance(handler, &_ERC20.TransactOpts, spender, subtractedValue)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_ERC20 *ERC20TransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20.Contract.DecreaseAllowance(&_ERC20.TransactOpts, spender, subtractedValue)
+}
+
+func (_ERC20 *ERC20TransactorSession) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncDecreaseAllowance(handler, &_ERC20.TransactOpts, spender, subtractedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20Transactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Transactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.contract.Transact(opts, "increaseAllowance", spender, addedValue)
 }
 
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20Session) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.IncreaseAllowance(&_ERC20.TransactOpts, spender, addedValue)
+func (_ERC20 *ERC20Transactor) AsyncIncreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.contract.AsyncTransact(opts, handler, "increaseAllowance", spender, addedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20 *ERC20TransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Session) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.IncreaseAllowance(&_ERC20.TransactOpts, spender, addedValue)
+}
+
+func (_ERC20 *ERC20Session) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncIncreaseAllowance(handler, &_ERC20.TransactOpts, spender, addedValue)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_ERC20 *ERC20TransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20.Contract.IncreaseAllowance(&_ERC20.TransactOpts, spender, addedValue)
+}
+
+func (_ERC20 *ERC20TransactorSession) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncIncreaseAllowance(handler, &_ERC20.TransactOpts, spender, addedValue)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.Transfer(&_ERC20.TransactOpts, recipient, amount)
+func (_ERC20 *ERC20Transactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.Transfer(&_ERC20.TransactOpts, recipient, amount)
+}
+
+func (_ERC20 *ERC20Session) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncTransfer(handler, &_ERC20.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_ERC20 *ERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20.Contract.Transfer(&_ERC20.TransactOpts, recipient, amount)
+}
+
+func (_ERC20 *ERC20TransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncTransfer(handler, &_ERC20.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20.Contract.TransferFrom(&_ERC20.TransactOpts, sender, recipient, amount)
+func (_ERC20 *ERC20Transactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20 *ERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20 *ERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20.Contract.TransferFrom(&_ERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20 *ERC20Session) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncTransferFrom(handler, &_ERC20.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_ERC20 *ERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20.Contract.TransferFrom(&_ERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20 *ERC20TransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20.Contract.AsyncTransferFrom(handler, &_ERC20.TransactOpts, sender, recipient, amount)
 }
 
 // ERC20ApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20 contract.
@@ -2554,12 +2768,12 @@ func (_ERC20Detailed *ERC20DetailedRaw) Call(opts *bind.CallOpts, result interfa
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20Detailed *ERC20DetailedRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.ERC20DetailedTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Detailed *ERC20DetailedRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.ERC20DetailedTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -2573,12 +2787,12 @@ func (_ERC20Detailed *ERC20DetailedCallerRaw) Call(opts *bind.CallOpts, result i
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -2741,64 +2955,100 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) TotalSupply() (*big.Int, error
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Approve(&_ERC20Detailed.TransactOpts, spender, amount)
+func (_ERC20Detailed *ERC20DetailedTransactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.Approve(&_ERC20Detailed.TransactOpts, spender, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncApprove(handler, &_ERC20Detailed.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_ERC20Detailed *ERC20DetailedTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Detailed.Contract.Approve(&_ERC20Detailed.TransactOpts, spender, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedTransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncApprove(handler, &_ERC20Detailed.TransactOpts, spender, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.Transfer(&_ERC20Detailed.TransactOpts, recipient, amount)
+func (_ERC20Detailed *ERC20DetailedTransactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.Transfer(&_ERC20Detailed.TransactOpts, recipient, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncTransfer(handler, &_ERC20Detailed.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_ERC20Detailed *ERC20DetailedTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Detailed.Contract.Transfer(&_ERC20Detailed.TransactOpts, recipient, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedTransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncTransfer(handler, &_ERC20Detailed.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Detailed.Contract.TransferFrom(&_ERC20Detailed.TransactOpts, sender, recipient, amount)
+func (_ERC20Detailed *ERC20DetailedTransactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Detailed *ERC20DetailedTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Detailed *ERC20DetailedSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Detailed.Contract.TransferFrom(&_ERC20Detailed.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncTransferFrom(handler, &_ERC20Detailed.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_ERC20Detailed *ERC20DetailedTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Detailed.Contract.TransferFrom(&_ERC20Detailed.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20Detailed *ERC20DetailedTransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Detailed.Contract.AsyncTransferFrom(handler, &_ERC20Detailed.TransactOpts, sender, recipient, amount)
 }
 
 // ERC20DetailedApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20Detailed contract.
@@ -3246,12 +3496,12 @@ func (_ERC20Extended *ERC20ExtendedRaw) Call(opts *bind.CallOpts, result interfa
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20Extended *ERC20ExtendedRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.ERC20ExtendedTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Extended *ERC20ExtendedRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.ERC20ExtendedTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -3265,12 +3515,12 @@ func (_ERC20Extended *ERC20ExtendedCallerRaw) Call(opts *bind.CallOpts, result i
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ERC20Extended *ERC20ExtendedTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ERC20Extended *ERC20ExtendedTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -3511,190 +3761,298 @@ func (_ERC20Extended *ERC20ExtendedCallerSession) TotalSupply() (*big.Int, error
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.Approve(&_ERC20Extended.TransactOpts, spender, amount)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.Approve(&_ERC20Extended.TransactOpts, spender, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncApprove(handler, &_ERC20Extended.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.Approve(&_ERC20Extended.TransactOpts, spender, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncApprove(handler, &_ERC20Extended.TransactOpts, spender, amount)
 }
 
 // BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
 //
 // Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_ERC20Extended *ERC20ExtendedTransactor) BindAssetHash(opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) BindAssetHash(opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "bindAssetHash", chainId, contractAddr)
 }
 
-// BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
-//
-// Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_ERC20Extended *ERC20ExtendedSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.BindAssetHash(&_ERC20Extended.TransactOpts, chainId, contractAddr)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncBindAssetHash(handler func(*types.Receipt, error), opts *bind.TransactOpts, chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "bindAssetHash", chainId, contractAddr)
 }
 
 // BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
 //
 // Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
-func (_ERC20Extended *ERC20ExtendedTransactorSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.BindAssetHash(&_ERC20Extended.TransactOpts, chainId, contractAddr)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncBindAssetHash(handler func(*types.Receipt, error), chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncBindAssetHash(handler, &_ERC20Extended.TransactOpts, chainId, contractAddr)
+}
+
+// BindAssetHash is a paid mutator transaction binding the contract method 0x9ac51a96.
+//
+// Solidity: function bindAssetHash(uint64 chainId, bytes contractAddr) returns()
+func (_ERC20Extended *ERC20ExtendedTransactorSession) BindAssetHash(chainId uint64, contractAddr []byte) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.BindAssetHash(&_ERC20Extended.TransactOpts, chainId, contractAddr)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncBindAssetHash(handler func(*types.Receipt, error), chainId uint64, contractAddr []byte) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncBindAssetHash(handler, &_ERC20Extended.TransactOpts, chainId, contractAddr)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x391edc16.
 //
 // Solidity: function burn(uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) Burn(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) Burn(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "burn", amount)
 }
 
-// Burn is a paid mutator transaction binding the contract method 0x391edc16.
-//
-// Solidity: function burn(uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) Burn(amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.Burn(&_ERC20Extended.TransactOpts, amount)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncBurn(handler func(*types.Receipt, error), opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "burn", amount)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x391edc16.
 //
 // Solidity: function burn(uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) Burn(amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) Burn(amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.Burn(&_ERC20Extended.TransactOpts, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncBurn(handler func(*types.Receipt, error), amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncBurn(handler, &_ERC20Extended.TransactOpts, amount)
+}
+
+// Burn is a paid mutator transaction binding the contract method 0x391edc16.
+//
+// Solidity: function burn(uint256 amount) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) Burn(amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.Burn(&_ERC20Extended.TransactOpts, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncBurn(handler func(*types.Receipt, error), amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncBurn(handler, &_ERC20Extended.TransactOpts, amount)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "decreaseAllowance", spender, subtractedValue)
 }
 
-// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
-//
-// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.DecreaseAllowance(&_ERC20Extended.TransactOpts, spender, subtractedValue)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncDecreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "decreaseAllowance", spender, subtractedValue)
 }
 
 // DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
 //
 // Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.DecreaseAllowance(&_ERC20Extended.TransactOpts, spender, subtractedValue)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncDecreaseAllowance(handler, &_ERC20Extended.TransactOpts, spender, subtractedValue)
+}
+
+// DecreaseAllowance is a paid mutator transaction binding the contract method 0x13a1aa5c.
+//
+// Solidity: function decreaseAllowance(address spender, uint256 subtractedValue) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) DecreaseAllowance(spender common.Address, subtractedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.DecreaseAllowance(&_ERC20Extended.TransactOpts, spender, subtractedValue)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncDecreaseAllowance(handler func(*types.Receipt, error), spender common.Address, subtractedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncDecreaseAllowance(handler, &_ERC20Extended.TransactOpts, spender, subtractedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "increaseAllowance", spender, addedValue)
 }
 
-// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
-//
-// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.IncreaseAllowance(&_ERC20Extended.TransactOpts, spender, addedValue)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncIncreaseAllowance(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "increaseAllowance", spender, addedValue)
 }
 
 // IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
 //
 // Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.IncreaseAllowance(&_ERC20Extended.TransactOpts, spender, addedValue)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncIncreaseAllowance(handler, &_ERC20Extended.TransactOpts, spender, addedValue)
+}
+
+// IncreaseAllowance is a paid mutator transaction binding the contract method 0x4d2e8120.
+//
+// Solidity: function increaseAllowance(address spender, uint256 addedValue) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) IncreaseAllowance(spender common.Address, addedValue *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.IncreaseAllowance(&_ERC20Extended.TransactOpts, spender, addedValue)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncIncreaseAllowance(handler func(*types.Receipt, error), spender common.Address, addedValue *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncIncreaseAllowance(handler, &_ERC20Extended.TransactOpts, spender, addedValue)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
 //
 // Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) Mint(opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "mint", account, amount)
 }
 
-// Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
-//
-// Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.Mint(&_ERC20Extended.TransactOpts, account, amount)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncMint(handler func(*types.Receipt, error), opts *bind.TransactOpts, account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "mint", account, amount)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
 //
 // Solidity: function mint(address account, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.Mint(&_ERC20Extended.TransactOpts, account, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncMint(handler func(*types.Receipt, error), account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncMint(handler, &_ERC20Extended.TransactOpts, account, amount)
+}
+
+// Mint is a paid mutator transaction binding the contract method 0x4f5e00c7.
+//
+// Solidity: function mint(address account, uint256 amount) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) Mint(account common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.Mint(&_ERC20Extended.TransactOpts, account, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncMint(handler func(*types.Receipt, error), account common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncMint(handler, &_ERC20Extended.TransactOpts, account, amount)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_ERC20Extended *ERC20ExtendedTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) SetManagerProxy(opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "setManagerProxy", ethCrossChainManagerProxyAddr)
 }
 
-// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
-//
-// Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_ERC20Extended *ERC20ExtendedSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.SetManagerProxy(&_ERC20Extended.TransactOpts, ethCrossChainManagerProxyAddr)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncSetManagerProxy(handler func(*types.Receipt, error), opts *bind.TransactOpts, ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "setManagerProxy", ethCrossChainManagerProxyAddr)
 }
 
 // SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
 //
 // Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
-func (_ERC20Extended *ERC20ExtendedTransactorSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.SetManagerProxy(&_ERC20Extended.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncSetManagerProxy(handler, &_ERC20Extended.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+// SetManagerProxy is a paid mutator transaction binding the contract method 0x7430f358.
+//
+// Solidity: function setManagerProxy(address ethCrossChainManagerProxyAddr) returns()
+func (_ERC20Extended *ERC20ExtendedTransactorSession) SetManagerProxy(ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.SetManagerProxy(&_ERC20Extended.TransactOpts, ethCrossChainManagerProxyAddr)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncSetManagerProxy(handler func(*types.Receipt, error), ethCrossChainManagerProxyAddr common.Address) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncSetManagerProxy(handler, &_ERC20Extended.TransactOpts, ethCrossChainManagerProxyAddr)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.Transfer(&_ERC20Extended.TransactOpts, recipient, amount)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.Transfer(&_ERC20Extended.TransactOpts, recipient, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncTransfer(handler, &_ERC20Extended.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.Transfer(&_ERC20Extended.TransactOpts, recipient, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncTransfer(handler, &_ERC20Extended.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedTransactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _ERC20Extended.Contract.TransferFrom(&_ERC20Extended.TransactOpts, sender, recipient, amount)
+func (_ERC20Extended *ERC20ExtendedTransactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_ERC20Extended *ERC20ExtendedTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_ERC20Extended *ERC20ExtendedSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _ERC20Extended.Contract.TransferFrom(&_ERC20Extended.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncTransferFrom(handler, &_ERC20Extended.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_ERC20Extended *ERC20ExtendedTransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _ERC20Extended.Contract.TransferFrom(&_ERC20Extended.TransactOpts, sender, recipient, amount)
+}
+
+func (_ERC20Extended *ERC20ExtendedTransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _ERC20Extended.Contract.AsyncTransferFrom(handler, &_ERC20Extended.TransactOpts, sender, recipient, amount)
 }
 
 // ERC20ExtendedApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the ERC20Extended contract.
@@ -4397,12 +4755,12 @@ func (_IERC20 *IERC20Raw) Call(opts *bind.CallOpts, result interface{}, method s
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IERC20 *IERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IERC20 *IERC20Raw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.IERC20Transactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.IERC20Transactor.contract.Transact(opts, method, params...)
 }
 
@@ -4416,12 +4774,12 @@ func (_IERC20 *IERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, me
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IERC20 *IERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IERC20 *IERC20TransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -4506,64 +4864,100 @@ func (_IERC20 *IERC20CallerSession) TotalSupply() (*big.Int, error) {
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) Approve(opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "approve", spender, amount)
 }
 
-// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
-//
-// Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+func (_IERC20 *IERC20Transactor) AsyncApprove(handler func(*types.Receipt, error), opts *bind.TransactOpts, spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "approve", spender, amount)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
 //
 // Solidity: function approve(address spender, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncApprove(handler, &_IERC20.TransactOpts, spender, amount)
+}
+
+// Approve is a paid mutator transaction binding the contract method 0x1f2d4860.
+//
+// Solidity: function approve(address spender, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) Approve(spender common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.Approve(&_IERC20.TransactOpts, spender, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncApprove(handler func(*types.Receipt, error), spender common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncApprove(handler, &_IERC20.TransactOpts, spender, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) Transfer(opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "transfer", recipient, amount)
 }
 
-// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
-//
-// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+func (_IERC20 *IERC20Transactor) AsyncTransfer(handler func(*types.Receipt, error), opts *bind.TransactOpts, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "transfer", recipient, amount)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0x6904e965.
 //
 // Solidity: function transfer(address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransfer(handler, &_IERC20.TransactOpts, recipient, amount)
+}
+
+// Transfer is a paid mutator transaction binding the contract method 0x6904e965.
+//
+// Solidity: function transfer(address recipient, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) Transfer(recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.Transfer(&_IERC20.TransactOpts, recipient, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncTransfer(handler func(*types.Receipt, error), recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransfer(handler, &_IERC20.TransactOpts, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Transactor) TransferFrom(opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.contract.Transact(opts, "transferFrom", sender, recipient, amount)
 }
 
-// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
-//
-// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
-	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+func (_IERC20 *IERC20Transactor) AsyncTransferFrom(handler func(*types.Receipt, error), opts *bind.TransactOpts, sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.contract.AsyncTransact(opts, handler, "transferFrom", sender, recipient, amount)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
 //
 // Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
-func (_IERC20 *IERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+func (_IERC20 *IERC20Session) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
 	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_IERC20 *IERC20Session) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransferFrom(handler, &_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+// TransferFrom is a paid mutator transaction binding the contract method 0xad8a9731.
+//
+// Solidity: function transferFrom(address sender, address recipient, uint256 amount) returns(bool)
+func (_IERC20 *IERC20TransactorSession) TransferFrom(sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, *types.Receipt, error) {
+	return _IERC20.Contract.TransferFrom(&_IERC20.TransactOpts, sender, recipient, amount)
+}
+
+func (_IERC20 *IERC20TransactorSession) AsyncTransferFrom(handler func(*types.Receipt, error), sender common.Address, recipient common.Address, amount *big.Int) (*types.Transaction, error) {
+	return _IERC20.Contract.AsyncTransferFrom(handler, &_IERC20.TransactOpts, sender, recipient, amount)
 }
 
 // IERC20ApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the IERC20 contract.
@@ -4994,12 +5388,12 @@ func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Call(opts *bind.CallOpts
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.IEthCrossChainManagerTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.IEthCrossChainManagerTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5013,34 +5407,46 @@ func (_IEthCrossChainManager *IEthCrossChainManagerCallerRaw) Call(opts *bind.Ca
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.contract.Transact(opts, method, params...)
 }
 
 // CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
 //
 // Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) CrossChain(opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) CrossChain(opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.contract.Transact(opts, "crossChain", _toChainId, _toContract, _method, _txData)
 }
 
-// CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
-//
-// Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
-	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactor) AsyncCrossChain(handler func(*types.Receipt, error), opts *bind.TransactOpts, _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.contract.AsyncTransact(opts, handler, "crossChain", _toChainId, _toContract, _method, _txData)
 }
 
 // CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
 //
 // Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
-func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+func (_IEthCrossChainManager *IEthCrossChainManagerSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+func (_IEthCrossChainManager *IEthCrossChainManagerSession) AsyncCrossChain(handler func(*types.Receipt, error), _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.Contract.AsyncCrossChain(handler, &_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+// CrossChain is a paid mutator transaction binding the contract method 0x1f5045a8.
+//
+// Solidity: function crossChain(uint64 _toChainId, bytes _toContract, bytes _method, bytes _txData) returns(bool)
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) CrossChain(_toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, *types.Receipt, error) {
+	return _IEthCrossChainManager.Contract.CrossChain(&_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
+}
+
+func (_IEthCrossChainManager *IEthCrossChainManagerTransactorSession) AsyncCrossChain(handler func(*types.Receipt, error), _toChainId uint64, _toContract []byte, _method []byte, _txData []byte) (*types.Transaction, error) {
+	return _IEthCrossChainManager.Contract.AsyncCrossChain(handler, &_IEthCrossChainManager.TransactOpts, _toChainId, _toContract, _method, _txData)
 }
 
 // IEthCrossChainManagerProxyABI is the input ABI used to generate the binding from.
@@ -5165,12 +5571,12 @@ func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Call(opts *bin
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.IEthCrossChainManagerProxyTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.IEthCrossChainManagerProxyTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5184,12 +5590,12 @@ func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyCallerRaw) Call(opt
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_IEthCrossChainManagerProxy *IEthCrossChainManagerProxyTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _IEthCrossChainManagerProxy.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -5237,6 +5643,19 @@ func DeploySafeMath(auth *bind.TransactOpts, backend bind.ContractBackend) (comm
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &SafeMath{SafeMathCaller: SafeMathCaller{contract: contract}, SafeMathTransactor: SafeMathTransactor{contract: contract}, SafeMathFilterer: SafeMathFilterer{contract: contract}}, nil
+}
+
+func AsyncDeploySafeMath(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(SafeMathABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(SafeMathBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // SafeMath is an auto generated Go binding around a Solidity contract.
@@ -5353,12 +5772,12 @@ func (_SafeMath *SafeMathRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeMath *SafeMathRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeMath *SafeMathRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.SafeMathTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.SafeMathTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5372,12 +5791,12 @@ func (_SafeMath *SafeMathCallerRaw) Call(opts *bind.CallOpts, result interface{}
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _SafeMath.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -5399,6 +5818,19 @@ func DeployUtils(auth *bind.TransactOpts, backend bind.ContractBackend) (common.
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &Utils{UtilsCaller: UtilsCaller{contract: contract}, UtilsTransactor: UtilsTransactor{contract: contract}, UtilsFilterer: UtilsFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployUtils(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(UtilsABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(UtilsBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // Utils is an auto generated Go binding around a Solidity contract.
@@ -5515,12 +5947,12 @@ func (_Utils *UtilsRaw) Call(opts *bind.CallOpts, result interface{}, method str
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Utils *UtilsRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Utils *UtilsRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.UtilsTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Utils *UtilsRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Utils *UtilsRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.UtilsTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5534,12 +5966,12 @@ func (_Utils *UtilsCallerRaw) Call(opts *bind.CallOpts, result interface{}, meth
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Utils *UtilsTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_Utils *UtilsTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Utils *UtilsTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Utils *UtilsTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _Utils.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -5561,6 +5993,19 @@ func DeployZeroCopySink(auth *bind.TransactOpts, backend bind.ContractBackend) (
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &ZeroCopySink{ZeroCopySinkCaller: ZeroCopySinkCaller{contract: contract}, ZeroCopySinkTransactor: ZeroCopySinkTransactor{contract: contract}, ZeroCopySinkFilterer: ZeroCopySinkFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployZeroCopySink(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(ZeroCopySinkABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(ZeroCopySinkBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // ZeroCopySink is an auto generated Go binding around a Solidity contract.
@@ -5677,12 +6122,12 @@ func (_ZeroCopySink *ZeroCopySinkRaw) Call(opts *bind.CallOpts, result interface
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySink *ZeroCopySinkRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.ZeroCopySinkTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySink *ZeroCopySinkRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.ZeroCopySinkTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5696,12 +6141,12 @@ func (_ZeroCopySink *ZeroCopySinkCallerRaw) Call(opts *bind.CallOpts, result int
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySink *ZeroCopySinkTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySink.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -5723,6 +6168,19 @@ func DeployZeroCopySource(auth *bind.TransactOpts, backend bind.ContractBackend)
 		return common.Address{}, nil, nil, err
 	}
 	return address, tx, &ZeroCopySource{ZeroCopySourceCaller: ZeroCopySourceCaller{contract: contract}, ZeroCopySourceTransactor: ZeroCopySourceTransactor{contract: contract}, ZeroCopySourceFilterer: ZeroCopySourceFilterer{contract: contract}}, nil
+}
+
+func AsyncDeployZeroCopySource(auth *bind.TransactOpts, handler func(*types.Receipt, error), backend bind.ContractBackend) (*types.Transaction, error) {
+	parsed, err := abi.JSON(strings.NewReader(ZeroCopySourceABI))
+	if err != nil {
+		return nil, err
+	}
+
+	tx, err := bind.AsyncDeployContract(auth, handler, parsed, common.FromHex(ZeroCopySourceBin), backend)
+	if err != nil {
+		return nil, err
+	}
+	return tx, nil
 }
 
 // ZeroCopySource is an auto generated Go binding around a Solidity contract.
@@ -5839,12 +6297,12 @@ func (_ZeroCopySource *ZeroCopySourceRaw) Call(opts *bind.CallOpts, result inter
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySource *ZeroCopySourceRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.ZeroCopySourceTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySource *ZeroCopySourceRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.ZeroCopySourceTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -5858,11 +6316,11 @@ func (_ZeroCopySource *ZeroCopySourceCallerRaw) Call(opts *bind.CallOpts, result
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_ZeroCopySource *ZeroCopySourceTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, *types.Receipt, error) {
 	return _ZeroCopySource.Contract.contract.Transact(opts, method, params...)
 }
