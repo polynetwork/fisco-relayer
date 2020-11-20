@@ -322,8 +322,42 @@ func (this *FiscoManager) StartTransact(toAccAddr string, amount int64) {
 }
 
 /**
- * BlockNumber
+ * SubscribeBlockNumber
  */
+func (this *FiscoManager) SubscribeBlockNumber() {
+	/**
+	 *Set block height notification
+	 */
+	this.client.SubscribeBlockNumberNotify(this.NotifyBlockNumber)
+
+	/**
+	 *Get the current latest block height
+	 */
+	currHeight, err := this.BlockNumber()
+	if err != nil {
+		log.Fatalf("FiscoManager MonitorChain - failed to get current fisco height: %v", err)
+		return
+	}
+	this.NotifyBlockNumber(currHeight)
+}
+
+func (this *FiscoManager) NotifyBlockNumber(blockNumber int64) {
+	log.Infof("MonitorChain - fisco chain current height: %v", blockNumber)
+	height := uint64(blockNumber)
+	if height <= this.currentHeight {
+		return
+	}
+	for this.currentHeight < height {
+		if this.FetchLockDepositEvents(this.currentHeight + 1) {
+			this.currentHeight++
+			if err := this.db.UpdateFiscoHeight(this.currentHeight); err != nil {
+				log.Errorf("FiscoManager MonitorChain - save new height %d to DB failed: %v", this.currentHeight, err)
+			}
+		}
+	}
+
+}
+
 func (this *FiscoManager) BlockNumber() (int64, error) {
 	bn, err := this.client.GetBlockNumber(context.Background())
 	if err != nil {
