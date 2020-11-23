@@ -191,7 +191,9 @@ func initFiscoServer(servConfig *config.ServiceConfig, polysdk *sdk.PolySdk, fis
 
 	//go mgr.FetchLockDepositEvents(427)
 
-	go mgr.MonitorChain()
+	//go mgr.MonitorChain()
+
+	go mgr.SubscribeBlockNumber()
 
 	//go mgr.SyncFiscoGenesisHeader(polysdk,servConfig.ETHConfig.ECCMContractAddress)
 
