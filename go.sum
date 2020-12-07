@@ -29,6 +29,8 @@ github.com/FISCO-BCOS/go-sdk v0.10.0 h1:Djg4wrq0RGBCbvmZXHkYgoGZYcrLOyxBvJSD2W/D
 github.com/FISCO-BCOS/go-sdk v0.10.0/go.mod h1:XHc7f2r82DiWlUO3GihJJG1HZjPC/H+ApBJpAwLqkTI=
 github.com/FISCO-BCOS/go-sdk v0.10.1 h1:5h5en/EFnnnP+2+G0zbMAWbspxJ+5nBGPh3rAWCbMlU=
 github.com/FISCO-BCOS/go-sdk v0.10.1/go.mod h1:XHc7f2r82DiWlUO3GihJJG1HZjPC/H+ApBJpAwLqkTI=
+github.com/FISCO-BCOS/go-sdk v0.10.2 h1:XdogU8zZ3DqH6NGAD+wJxKpuX+XFFGLIJ+3sreKGQyU=
+github.com/FISCO-BCOS/go-sdk v0.10.2/go.mod h1:XHc7f2r82DiWlUO3GihJJG1HZjPC/H+ApBJpAwLqkTI=
 github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e h1:ahyvB3q25YnZWly5Gq1ekg6jcmWaGj/vG/MhF4aisoc=
 github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e/go.mod h1:kGUqhHd//musdITWjFvNTHn90WG9bMLBEPQZ17Cmlpw=
 github.com/GeertJohan/go.incremental v1.0.0/go.mod h1:6fAjUhbVuX1KcMD3c8TEgVUqmo4seqhv0i0kdATSkM0=
@@ -269,6 +271,7 @@ github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6/go.mod h1:cIg4er
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/mock v1.3.1-0.20190508161146-9fa652df1129 h1:tT8iWCYw4uOem71yYA3htfH+LNopJvcqZQshm56G5L4=
 github.com/golang/mock v1.3.1-0.20190508161146-9fa652df1129/go.mod h1:sBzyDLLjw3U8JLTeZvSv8jJB+tU5PVekmnlKIyFUx0Y=
+github.com/golang/mock v1.4.3 h1:GV+pQPG/EUUbkh47niozDcADz6go/dUwhVzdUQHIVRw=
 github.com/golang/mock v1.4.3/go.mod h1:UOMv5ysSaYNkG+OFQykRIcU/QvvxJf3p21QfJ2Bt3cw=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.3.0/go.mod h1:Qd/q+1AKNOZr9uGQzbzCmRO6sUih6GTPZv6a1/R87v0=
@@ -511,6 +514,7 @@ github.com/onsi/gomega v1.4.1/go.mod h1:C1qb7wdrVGGVU+Z6iS04AVkA3Q65CEZX59MT0QO5
 github.com/onsi/gomega v1.4.3/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
 github.com/onsi/gomega v1.7.0 h1:XPnZz8VVBHjVsy1vzJmRwIcSwiUO+JFfrv/xGiigmME=
 github.com/onsi/gomega v1.7.0/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
+github.com/onsi/gomega v1.9.0 h1:R1uwffexN6Pr340GtYRIdZmAiN4J+iw6WG4wog1DUXg=
 github.com/onsi/gomega v1.9.0/go.mod h1:Ho0h+IUsWyvy1OpqCwxlQ/21gkhVunqlU8fDGcoTdcA=
 github.com/ontio/go-bip32 v0.0.0-20190520025953-d3cea6894a2b h1:UQDN12BzdWhXQL0t2QcRixHqAIG+JKNvQ20DhrIODtU=
 github.com/ontio/go-bip32 v0.0.0-20190520025953-d3cea6894a2b/go.mod h1:J0eVc7BEMmVVXbGv9PHoxjRSEwOwLr0qfzPk8Rdl5iw=
@@ -530,6 +534,7 @@ github.com/ontio/ontology-crypto v1.0.9/go.mod h1:h/jeqqb9Ma/Leszxqh6zY3eTF2yks4
 github.com/ontio/ontology-eventbus v0.9.1 h1:nt3AXWx3gOyqtLiU4EwI92Yc4ik/pWHu9xRK15uHSOs=
 github.com/ontio/ontology-eventbus v0.9.1/go.mod h1:hCQIlbdPckcfykMeVUdWrqHZ8d30TBdmLfXCVWGkYhM=
 github.com/ontio/ontology-go-sdk v1.11.3/go.mod h1:xA4OFerYgXMoQIdfQsyFCylM8QGyWCvuPPlfSCp+aRw=
+github.com/ontio/ontology-go-sdk v1.11.4 h1:c89bf6BxahNpf7cM+k0/6RjJNNd33NdtsjdeOB5pT8s=
 github.com/ontio/ontology-go-sdk v1.11.4/go.mod h1:fRhHYhFfYiUuIlTVtcXLVziiXOneBwVCSAX72+N7XVI=
 github.com/ontio/ontology-go-sdk v1.11.8 h1:11CQo6IuoP5P8UjosUWaLbziOREdSd/ePdM2i0w4VO4=
 github.com/ontio/ontology-go-sdk v1.11.8/go.mod h1:fRhHYhFfYiUuIlTVtcXLVziiXOneBwVCSAX72+N7XVI=
